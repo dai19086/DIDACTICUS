@@ -1,0 +1,10 @@
+<div>
+    <nav class="navbar" style="background-color: #008037;">
+        <div class="container-fluid">
+          <a class="navbar-brand" (click)="userScreenButton()">
+            <img src="assets\image\DIDACTICUS logo.png" alt="DIDACTICUS" width="15%">
+          </a>
+          <button class="btn btn-light btn-sm float-end" type="button" id="LogOutBtn" [hidden]="userExists===false" (click)="logOut()">Log Out</button>
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,26 @@
+<div class="h-100 d-flex align-items-center justify-content-center" style="background-color: #a7ffcd;" >
+  <div style="background-color: white;">
+      <table>
+          <thead>
+            <td>Select the scenario that you want to revisit and then press "Modify Scenario"</td>
+          </thead>
+          <tbody>
+            <tr *ngFor="let scenario of scenarios">
+              <td><!--{%raw%}{{ scenario.name }}{%endraw%}</td>
+              <td>
+                  <input type="radio" name="radiogroup" [checked]="idx === 0" [value]="scenario.name">-->
+              </td>
+            </tr>
+          </tbody>
+      </table>
+
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button type="button" class="btn btn-primary me-md-2" routerLink="new-scenario">Modify Scenario</button>
+      </div>
+      <br>
+      <br>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="button" class="btn btn-info me-md-2" routerLink="/new-scenario">Create New Scenario</button>
+      </div>
+  </div>
+</div>

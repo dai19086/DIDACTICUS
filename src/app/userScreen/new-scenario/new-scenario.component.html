@@ -1,0 +1,125 @@
+<div class="overflow-auto d-flex align-items-center justify-content-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #a7ffcd;" >
+    <div class="container py-4 mb-5" style="background-color: #a7ffcd;">
+        <div *ngIf="(eduProg!='')">
+            <h5 style="align-self: flex-start;">Βρες το πρόγραμμα σπουδών της {{eduProg}} εδώ.</h5>
+        </div>
+        <div class="d-flex justify-content-center">
+            
+        </div>
+        <form style="background-color: #008037;" class="rounded p-4">
+            
+            <div *ngIf="page==1">
+                <h3>Βασικές πληροφορίες σεναρίου (1/6)</h3>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Τίτλος</label>
+                    <input type="text" class="form-control" id="title" name="title" [(ngModel)]="scenario[0]">
+                </div>
+                <div class="mb-3">
+                    <label for="duration" class="form-label">Διάρκεια</label>
+                    <input type="text" class="form-control" id="duration" name="duration" [(ngModel)]="scenario[1]">
+                </div>
+                <div class="mb-3">
+                    <label for="eduProg" class="form-label">Τάξη</label>
+                    <select class="form-control" id="eduProgDropdown" name="eduProgDropdown" [(ngModel)]="scenario[2]" (change)="onSelect()">
+                        <option value="">Διαλέξτε Τάξη</option>
+                        <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
+                        </select>
+                </div>
+            </div>
+
+            <div *ngIf="page == 2">
+                <h3>Περιγραφή σεναρίου (2/6)</h3>
+                <div class="mb-3">
+                    <label for="goals" class="form-label">Στόχοι</label>
+                    <input type="text" class="form-control" id="goals" name="goals" [(ngModel)]="scenario[3]">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Συνοπτική Περιγραφή</label>
+                    <textarea class="form-control" id="description" rows="3" name="description" [(ngModel)]="scenario[4]"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="sciApproach" class="form-label">Επιστημολογική Προσέγγιση</label>
+                    <textarea class="form-control" id="sciApproach" rows="3" name="sciApproach" [(ngModel)]="scenario[5]"></textarea>
+                </div>
+            </div>
+
+            <div *ngIf="page == 3">
+                <h3>Προσέγγιση (3/6)</h3>
+                <div class="mb-3">
+                    <label for="connections" class="form-label">Διασυνδέσεις Εννοιών</label>
+                    <textarea class="form-control" id="connections" rows="3" name="connections" [(ngModel)]="scenario[6]"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="multiApproach" class="form-label">Πολλαπλές Προσεγγίσεις</label>
+                    <textarea class="form-control" id="multiApproach" rows="3" name="multiApproach" [(ngModel)]="scenario[7]"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="toolJusti" class="form-label">Αιτιολόγηση Εργαλείων</label>
+                    <textarea class="form-control" id="toolJusti" rows="3" name="toolJusti" [(ngModel)]="scenario[8]"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="sources" class="form-label">Εξωτερικές Πηγές</label>
+                    <textarea class="form-control" id="sources" rows="3" name="sources" [(ngModel)]="scenario[9]"></textarea>
+                </div>
+            </div>
+
+            <div *ngIf="page == 4">
+                <h3>Μεθοδολογία μάθησης (4/6)</h3>
+                <div class="mb-3">
+                    <label for="method" class="form-label">Μέθοδος Μάθησης</label>
+                    <input type="text" class="form-control" id="method" name="method" [(ngModel)]="scenario[10]">
+                </div>
+                <div class="mb-3">
+                    <label for="microChanges" class="form-label">Μικρομεταβολές</label>
+                    <textarea class="form-control" id="microChanges" rows="3" name="microChanges" [(ngModel)]="scenario[11]"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="activityEllaboration" class="form-label">Ανάλυση Φύλλων Εργασίας</label>
+                    <textarea class="form-control" id="activityEllaboration" rows="3" name="activityEllaboration" [(ngModel)]="scenario[12]"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="classOrg" class="form-label">Οργάνωση Τάξης</label>
+                    <textarea class="form-control" id="classOrg" rows="3" name="classOrg" [(ngModel)]="scenario[13]"></textarea>
+                </div>
+            </div>
+
+            <div *ngIf="page == 5">
+                <h3>Αλληλεπίδραση διδάσκοντος-μαθητή (5/6)</h3>
+                <div class="mb-3">
+                    <label for="consensus" class="form-label">Διδακτικό Συμβόλαιο</label>
+                    <textarea class="form-control" id="consensus" rows="3" name="consensus" [(ngModel)]="scenario[14]"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="difficulties" class="form-label">Πρόβλεψη Δυσκολιών</label>
+                    <textarea class="form-control" id="difficulties" rows="3" name="difficulties" [(ngModel)]="scenario[15]"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="noise" class="form-label">Διδακτικός Θόρυβος</label>
+                    <textarea class="form-control" id="noise" rows="3" name="noise" [(ngModel)]="scenario[16]"></textarea>
+                </div>                
+            </div>
+            
+            <div *ngIf="page == 6">
+                <h3>Αυτοαξιολόγηση (6/6)</h3>
+                <div class="mb-3">
+                    <label for="evaluation" class="form-label">Αξιολόγηση Διδακτικού Σεναρίου</label>
+                    <textarea class="form-control" id="evaluation" rows="3" name="evaluation" [(ngModel)]="scenario[17]"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="reflection" class="form-label">Αναστοχασμός</label>
+                    <textarea class="form-control" id="reflection" rows="3" name="reflection" [(ngModel)]="scenario[18]"></textarea>
+                </div>    
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <button type="button" class="btn btn-info me-md-2" *ngIf="page != 1" (click)="onClickPrevious()">Previous</button>
+                <button type="button" class="btn btn-primary me-md-2" *ngIf="page != 6" (click)="onClickNext()">Next</button>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-info me-md-2">Export PDF</button>
+                <button type="button" class="btn btn-primary me-md-2">Save Scenario</button>
+            </div>
+            
+        </form>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+body {
+  height: 100%
+}
+
+td {
+  min-width: 50px;
+}

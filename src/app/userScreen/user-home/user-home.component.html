@@ -1,0 +1,19 @@
+<div class="h-100 d-flex align-items-center justify-content-center" style="background-color: #a7ffcd;" >
+    <div>
+        <div *ngIf="usernameExists" class="welcomeBanner" [@fade]>
+            <h1>Welcome, {{username}}!</h1>
+            <h3>How can we help you today?</h3>
+        </div>
+        <hr class="hr hr-blurry" />
+        <table>
+            <tr>
+                <td></td>
+                <td><button type="button" class="btn btn-info" routerLink="/savedScenarios">SAVED SCENARIOS</button></td>
+                <td></td>
+                <td><button type="button" class="btn btn-lg btn-success" routerLink="/newScenario">NEW SCENARIO</button></td>
+                <td></td>
+            </tr>
+        </table>
+        <hr class="hr hr-blurry" />
+    </div>
+</div>
