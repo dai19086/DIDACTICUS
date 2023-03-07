@@ -15,6 +15,7 @@ import { UserHomeComponent } from './userScreen/user-home/user-home.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
