@@ -2,6 +2,11 @@ label {
   font-weight: bold;
 }
 
+a[href] {
+  color: blue;
+  text-decoration: underline;
+}
+
 .container {
   display: flex;
   flex-direction: column;

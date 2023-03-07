@@ -75,27 +75,27 @@ export class NewScenarioComponent {
   onSelect() {
     switch (this.scenario[2]) {
       case "Γ'Λυκείου":
-        this.eduProg = 'ΤρίτηΛ';
+        this.eduProg = 'https://www.youtube.com/';
         break;
       case "Β'Λυκείου":
         this.eduProg = 'ΔευτέραΛ';
         break;
       case "Α'Λυκείου":
-        this.eduProg = 'ΠρώτηΛ';
+        this.eduProg = 'https://mail.google.com/';
         break;
 
         case "Γ'Γυμνασίου":
         this.eduProg = 'ΤρίτηΓ';
         break;
       case "Β'Γυμνασίου":
-        this.eduProg = 'ΔευτέραΓ';
+        this.eduProg = 'https://drive.google.com/';
         break;
       case "Α'Γυμνασίου":
         this.eduProg = 'ΠρώτηΓ';
         break;
 
         case "ΣΤ'Δημοτικού":
-        this.eduProg = 'ΈκτηΔ';
+        this.eduProg = 'https://www.facebook.com/';
         break;
       case "Ε'Δημοτικού":
         this.eduProg = 'ΠέμπτηΔ';
@@ -114,7 +114,7 @@ export class NewScenarioComponent {
         break;
 
         case "Νηπιαγωγείο":
-        this.eduProg = 'Νηπιαγωγείο';
+        this.eduProg = 'https://openeclass.uom.gr/';
         break;
 
       default:
