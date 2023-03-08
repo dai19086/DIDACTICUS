@@ -3,7 +3,14 @@ export class Scenario {
   duration: string;
   eduProg: string;
   //----------page2
-  goals: string;
+
+  knowledgeGoalsCheck: boolean;
+  knowledgeGoals: string;
+  skillGoalsCheck: boolean;
+  skillGoals: string;
+  behaviourGoalsCheck: boolean;
+  behaviourGoals: string;
+
   description: string;
   sciApproach: string;
   //--------------page3
@@ -24,13 +31,19 @@ export class Scenario {
   evaluation: string;
   reflection: string;
 
-  
+
   constructor(){
     this.title = '';
     this.duration = '';
     this.eduProg = '';
 
-    this.goals = '';
+    this.knowledgeGoalsCheck = false;
+    this.knowledgeGoals = '';
+    this.skillGoalsCheck = false;
+    this.skillGoals = '';
+    this.behaviourGoalsCheck = false;
+    this.behaviourGoals = '';
+    
     this.description = '';
     this.sciApproach = '';
 

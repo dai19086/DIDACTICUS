@@ -31,7 +31,40 @@
                 <h3>Περιγραφή σεναρίου (2/6)</h3>
                 <div class="mb-3">
                     <label for="goals" class="form-label">Στόχοι</label>
-                    <input type="text" class="form-control" id="goals" name="goals" [(ngModel)]="scenario.goals">
+                    <div class="row form-group py-1">
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label" for="knowledgeGoalsCheck">Γνώση</label>
+                                <input type="checkbox" class="form-check-input" id="knowledgeGoalsCheck" name="knowledgeGoalsCheck" [(ngModel)]="scenario.knowledgeGoalsCheck">
+                            </div>
+                        </div>
+                        <div class="col-sm-10" *ngIf="scenario.knowledgeGoalsCheck == true">
+                            <textarea class="form-control" id="knowledgeGoals" rows="2" name="knowledgeGoals" [(ngModel)]="scenario.knowledgeGoals"></textarea>
+                        </div>
+                      </div>
+                      <div class="row form-group py-1">
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label" for="skillGoalsCheck">Δεξιότητες</label>
+                                <input type="checkbox" class="form-check-input" id="skillGoalsCheck" name="skillGoalsCheck" [(ngModel)]="scenario.skillGoalsCheck">
+                            </div>
+                        </div>
+                        <div class="col-sm-10" *ngIf="scenario.skillGoalsCheck == true">
+                            <textarea class="form-control" id="skillGoals" rows="2" name="skillGoals" [(ngModel)]="scenario.skillGoals"></textarea>
+                        </div>
+                      </div>
+                      <div class="row form-group py-1">
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label" for="behaviourGoalsCheck">Στάσεις & Συμπεριφορές</label>
+                                <input type="checkbox" class="form-check-input" id="behaviourGoalsCheck" name="behaviourGoalsCheck" [(ngModel)]="scenario.behaviourGoalsCheck">
+                            </div>
+                        </div>
+                        <div class="col-sm-10" *ngIf="scenario.behaviourGoalsCheck == true">
+                            <textarea class="form-control" id="behaviourGoals" rows="2" name="behaviourGoals" [(ngModel)]="scenario.behaviourGoals"></textarea>
+                        </div>
+                      </div>
+                    <small>(Επιλέξτε το πεδίο του κάθε στόχου και περιγράψτε έναν βασικό και προαιρετικά και έναν δευτερεύοντα στόχο του Σεναρίου σας.)</small>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Συνοπτική Περιγραφή</label>
