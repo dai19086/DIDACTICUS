@@ -12,15 +12,15 @@
                 <h3>Βασικές πληροφορίες σεναρίου (1/6)</h3>
                 <div class="mb-3">
                     <label for="title" class="form-label">Τίτλος</label>
-                    <input type="text" class="form-control" id="title" name="title" ngbTooltip="Δώστε έναν τίτλο στο σενάριό σας." triggers="focus" [(ngModel)]="scenario.title">
+                    <input type="text" class="form-control" id="title" name="title" ngbTooltip="Δώστε έναν τίτλο στο Σενάριό σας." triggers="focus" [(ngModel)]="scenario.title">
                 </div>
                 <div class="mb-3">
                     <label for="duration" class="form-label">Διάρκεια</label>
-                    <input type="text" class="form-control" id="duration" name="duration" ngbTooltip="Πόσο θα διαρκέσει το σενάριο;" triggers="focus" [(ngModel)]="scenario.duration">
+                    <input type="text" class="form-control" id="duration" name="duration" ngbTooltip="Πόσο θα διαρκέσει το Σενάριο;" triggers="focus" [(ngModel)]="scenario.duration">
                 </div>
                 <div class="mb-3">
                     <label for="eduProg" class="form-label">Τάξη</label>
-                    <select class="form-control" id="eduProgDropdown" name="eduProgDropdown" ngbTooltip="Για ποια Τάξη προορίζεται το σενάριο;" triggers="focus" [(ngModel)]="scenario.eduProg" (change)="onSelect()">
+                    <select class="form-control" id="eduProgDropdown" name="eduProgDropdown" ngbTooltip="Για ποια Τάξη προορίζεται το Σενάριο;" triggers="focus" [(ngModel)]="scenario.eduProg" (change)="onSelect()">
                         <option value="">Διαλέξτε Τάξη</option>
                         <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
                         </select>
@@ -31,6 +31,7 @@
                 <h3>Περιγραφή σεναρίου (2/6)</h3>
                 <div class="mb-3">
                     <label for="goals" class="form-label">Στόχοι</label>
+                    <small class="text-white">   (Επιλέξτε το πεδίο του κάθε στόχου και περιγράψτε έναν βασικό και προαιρετικά και έναν δευτερεύοντα στόχο του Σεναρίου σας.)</small>
                     <div class="row form-group py-1">
                         <div class="col-sm-2">
                             <div class="form-check">
@@ -39,7 +40,7 @@
                             </div>
                         </div>
                         <div class="col-sm-10" *ngIf="scenario.knowledgeGoalsCheck == true">
-                            <textarea class="form-control" id="knowledgeGoals" rows="2" name="knowledgeGoals" [(ngModel)]="scenario.knowledgeGoals"></textarea>
+                            <textarea class="form-control" id="knowledgeGoals" rows="2" name="knowledgeGoals" ngbTooltip="{{goalsTip}}" triggers="focus" [(ngModel)]="scenario.knowledgeGoals"></textarea>
                         </div>
                       </div>
                       <div class="row form-group py-1">
@@ -50,7 +51,7 @@
                             </div>
                         </div>
                         <div class="col-sm-10" *ngIf="scenario.skillGoalsCheck == true">
-                            <textarea class="form-control" id="skillGoals" rows="2" name="skillGoals" [(ngModel)]="scenario.skillGoals"></textarea>
+                            <textarea class="form-control" id="skillGoals" rows="2" name="skillGoals" ngbTooltip="{{goalsTip}}" triggers="focus" [(ngModel)]="scenario.skillGoals"></textarea>
                         </div>
                       </div>
                       <div class="row form-group py-1">
@@ -61,18 +62,18 @@
                             </div>
                         </div>
                         <div class="col-sm-10" *ngIf="scenario.behaviourGoalsCheck == true">
-                            <textarea class="form-control" id="behaviourGoals" rows="2" name="behaviourGoals" [(ngModel)]="scenario.behaviourGoals"></textarea>
+                            <textarea class="form-control" id="behaviourGoals" rows="2" name="behaviourGoals" ngbTooltip="{{goalsTip}}" triggers="focus" [(ngModel)]="scenario.behaviourGoals"></textarea>
                         </div>
                       </div>
-                    <small>(Επιλέξτε το πεδίο του κάθε στόχου και περιγράψτε έναν βασικό και προαιρετικά και έναν δευτερεύοντα στόχο του Σεναρίου σας.)</small>
+                    <small class="text-danger">ΠΡΟΣΟΧΗ!!! Οι στόχοι θα πρέπει να είναι συνοπτικοί, μη βερμπαλιστικοί, επαρκώς ορισμένοι και ρεαλιστικοί σε σχέση με τα πλαίσια του μαθήματος (γνωστικό επίπεδο μαθητών, διάρκεια μαθήματος, διαθέσιμο λογισμικό)!</small>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Συνοπτική Περιγραφή</label>
-                    <textarea class="form-control" id="description" rows="3" name="description" [(ngModel)]="scenario.description"></textarea>
+                    <textarea class="form-control" id="description" rows="3" name="description" ngbTooltip="Κεντρική ιδέα + χρονοδιάγραμμα εκτέλεσης + ρόλοι συντελεστών." triggers="focus" [(ngModel)]="scenario.description"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="sciApproach" class="form-label">Επιστημολογική Προσέγγιση</label>
-                    <textarea class="form-control" id="sciApproach" rows="3" name="sciApproach" [(ngModel)]="scenario.sciApproach"></textarea>
+                    <textarea class="form-control" id="sciApproach" rows="3" name="sciApproach" ngbTooltip="Σύντομη εξήγηση της επιστημονικής σπουδαιότητας του αντικειμένου και εννοιολογική σύνδεση με προηγούμενα γνώσεων." triggers="focus" [(ngModel)]="scenario.sciApproach"></textarea>
                 </div>
             </div>
 
@@ -80,19 +81,19 @@
                 <h3>Προσέγγιση (3/6)</h3>
                 <div class="mb-3">
                     <label for="connections" class="form-label">Διασυνδέσεις Εννοιών</label>
-                    <textarea class="form-control" id="connections" rows="3" name="connections" [(ngModel)]="scenario.connections"></textarea>
+                    <textarea class="form-control" id="connections" rows="3" name="connections" ngbTooltip="Συνδέστε το θέμα με την υπόλοιπη εκπαιδευτική διαδικασία και το συσχετίζουμε με περεταίρω δραστηριότητες για την εμβάθυνσή του." triggers="focus" [(ngModel)]="scenario.connections"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="multiApproach" class="form-label">Πολλαπλές Προσεγγίσεις</label>
-                    <textarea class="form-control" id="multiApproach" rows="3" name="multiApproach" [(ngModel)]="scenario.multiApproach"></textarea>
+                    <textarea class="form-control" id="multiApproach" rows="3" name="multiApproach" ngbTooltip="Αναφορά άλλων πλαισίων εκφοράς ή αναπαράστασης των διδασκούμενων εννοιών." triggers="focus" [(ngModel)]="scenario.multiApproach"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="toolJusti" class="form-label">Αιτιολόγηση Εργαλείων</label>
-                    <textarea class="form-control" id="toolJusti" rows="3" name="toolJusti" [(ngModel)]="scenario.toolJusti"></textarea>
+                    <textarea class="form-control" id="toolJusti" rows="3" name="toolJusti" ngbTooltip="Εξηγήστε τι εργαλεία θα χρησιμοποιηθούν για την διαδικασία της μάθησης (π.χ. Υπολογιστής, Προτζέκτορας, κάποιο ψηφιακό εργαλείο κλπ.) και για ποιό λόγο το καθένα." triggers="focus" [(ngModel)]="scenario.toolJusti"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="sources" class="form-label">Εξωτερικές Πηγές</label>
-                    <textarea class="form-control" id="sources" rows="3" name="sources" [(ngModel)]="scenario.sources"></textarea>
+                    <textarea class="form-control" id="sources" rows="3" name="sources" ngbTooltip="Προσθήκη βιβλιογραφίας/διαδικτυογραφίας." triggers="focus" [(ngModel)]="scenario.sources"></textarea>
                 </div>
             </div>
 
@@ -100,19 +101,20 @@
                 <h3>Μεθοδολογία μάθησης (4/6)</h3>
                 <div class="mb-3">
                     <label for="method" class="form-label">Μέθοδος Μάθησης</label>
-                    <input type="text" class="form-control" id="method" name="method" [(ngModel)]="scenario.method">
+                    <input type="text" class="form-control" id="method" name="method" ngbTooltip="Εξηγήστε τις Θεωρίες Μάθησης που θα  χρσηιμοποιεί το Σενάριό σας." triggers="focus" [(ngModel)]="scenario.method">
+                    <small>Μπορείτε να βρείτε τις υποκειμενικές θεωρίες μάθησης <a href="" target="_blank">εδώ</a>.</small>
                 </div>
                 <div class="mb-3">
                     <label for="microChanges" class="form-label">Μικρομεταβολές</label>
-                    <textarea class="form-control" id="microChanges" rows="3" name="microChanges" [(ngModel)]="scenario.microChanges"></textarea>
+                    <textarea class="form-control" id="microChanges" rows="3" name="microChanges" ngbTooltip="Παρουσιάστε προσαρμογές που θα πρέπει να γίνουν στον τρόπο διδασκαλίας." triggers="focus" [(ngModel)]="scenario.microChanges"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="activityEllaboration" class="form-label">Ανάλυση Φύλλων Εργασίας</label>
-                    <textarea class="form-control" id="activityEllaboration" rows="3" name="activityEllaboration" [(ngModel)]="scenario.activityEllaboration"></textarea>
+                    <textarea class="form-control" id="activityEllaboration" rows="3" name="activityEllaboration" ngbTooltip="Επεκταθείτε στο πως θα δημιουργηθούν και θα αξιοποιηθούν τα φύλλα εργασίας." triggers="focus" [(ngModel)]="scenario.activityEllaboration"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="classOrg" class="form-label">Οργάνωση Τάξης</label>
-                    <textarea class="form-control" id="classOrg" rows="3" name="classOrg" [(ngModel)]="scenario.classOrg"></textarea>
+                    <textarea class="form-control" id="classOrg" rows="3" name="classOrg" ngbTooltip="Εξηγήστε πως θα προτείνατε να οργανωθούν οι μαθητές για την εκτέλεση του Σεναρίου." triggers="focus" [(ngModel)]="scenario.classOrg"></textarea>
                 </div>
             </div>
 
@@ -120,20 +122,21 @@
                 <h3>Αλληλεπίδραση διδάσκοντος-μαθητή (5/6)</h3>
                 <div class="mb-3">
                     <label for="consensus" class="form-label">Διδακτικό Συμβόλαιο</label>
-                    <textarea class="form-control" id="consensus" rows="3" name="consensus" [(ngModel)]="scenario.consensus"></textarea>
+                    <textarea class="form-control" id="consensus" rows="3" name="consensus" ngbTooltip="Αναπτύξτε το  διδακτικό συμβόλαιο που προϋποθέτη το Σενάριό σας." triggers="focus" [(ngModel)]="scenario.consensus"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="difficulties" class="form-label">Πρόβλεψη Δυσκολιών</label>
-                    <textarea class="form-control" id="difficulties" rows="3" name="difficulties" [(ngModel)]="scenario.difficulties"></textarea>
+                    <textarea class="form-control" id="difficulties" rows="3" name="difficulties" ngbTooltip="Τι δυσκολίες προβλέπετε να αντιμετωπίσετε κατά την διάρκεια της εκτέλεσης του σεναρίου;" triggers="focus" [(ngModel)]="scenario.difficulties"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="noise" class="form-label">Διδακτικός Θόρυβος</label>
-                    <textarea class="form-control" id="noise" rows="3" name="noise" [(ngModel)]="scenario.noise"></textarea>
+                    <textarea class="form-control" id="noise" rows="3" name="noise" ngbTooltip="Τι διδακτικό θόρυβο αναμένετε και πως θα τον αντιμετωπίσετε." triggers="focus" [(ngModel)]="scenario.noise"></textarea>
                 </div>                
             </div>
             
             <div *ngIf="page == 6">
                 <h3>Αυτοαξιολόγηση (6/6)</h3>
+                <small class="text-white"> Το βήμα αυτό αναφέρεται στην μετέπειτα αξιολόγηση και αναθεωρήσεις του Διδακτικού Σεναρίου.</small>
                 <div class="mb-3">
                     <label for="evaluation" class="form-label">Αξιολόγηση Διδακτικού Σεναρίου</label>
                     <textarea class="form-control" id="evaluation" rows="3" name="evaluation" [(ngModel)]="scenario.evaluation"></textarea>
