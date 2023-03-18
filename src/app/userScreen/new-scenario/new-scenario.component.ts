@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Scenario } from 'src/app/scenario.model';
+import { UserStateService } from 'src/app/shared/auth.service';
 
 @Component({
   selector: 'app-new-scenario',
@@ -24,76 +25,95 @@ export class NewScenarioComponent {
     { value: "Γ'Δημοτικού", label: "Γ'Δημοτικού" },
     { value: "Β'Δημοτικού", label: "Β'Δημοτικού" },
     { value: "Α'Δημοτικού", label: "Α'Δημοτικού" },
-
-    { value: "Νηπιαγωγείο", label: "Νηπιαγωγείο" }
   ];
   goalsTip : string = "Αποφύγετε μη ενεργητικά και αφηρημένα ρήματα όπως 'να μάθουν', 'να γνωρίζουν', 'να κατανοήσου', ή εκφράσεις όπως 'να μπορούν' ή 'να είναι σε θέση'. Αντ' αυτού προτιμήστε ενεργητικά ρήματα για την περιγραφή των στόχων του Σεναρίου σας.";
 
+
+
+
   eduProg : string = '';    //link to educational program
-  
+
   page : number = 0;        //used for dectating the page of the form that is currently displayed
 
-  id : number = 0;    //the user's id
+  id : string | undefined = "0";    //the user's id
   scenario: Scenario = new Scenario();
 
-  constructor () { }
+  userExists : boolean = this.user.userLoggedIn;  //for saveButton function
+
+  //used for button styling for logged in or guest users
+  buttonOpacity: number = 1;
+  buttonVisibility: string = 'hidden';
+
+  constructor (private user :UserStateService) { }
 
   ngOnInit(): void {
     this.page = 1;
     this.scenario = new Scenario();
 
+    setInterval(() => {
+        this.userExists = this.user.userLoggedIn;
+      },100)            //refreshes the userExists value 10 times per second
 
-
+      if(this.userExists){
+        this.buttonOpacity = 1;
+      }else{
+        this.buttonOpacity = 0.5;
+      }
   }
 
   //onClicks for the Next & Previous Buttons
   onClickPrevious(){this.page = this.page -1;}
   onClickNext(){this.page = this.page +1;}
 
+  //onClick for the Save Button
+  saveButton(){
+    if(this.userExists){
+      this.id=this.user.currentUser?.uid;
+      alert(this.id);
+      //save senario
+    } else{
+      //decrease opacity and show warning(maybe a button to log in)
+      alert("Only users can access the Save Scenario feature. Please log in and try again!");
+      this.buttonVisibility = 'visible';
+    }
+  }
+
+
+
   //used onChange detection to subsequently change the URL that is displayed to the user once a school grade is chosen
   onSelect() {
+
+    const eduProgLG : string = 'https://nickpapag.sites.sch.gr/2022/09/23/odhgies-pliroforiki-g-lykeiou-aepp-2022-203/';
+    const eduProgLB : string = 'https://nickpapag.sites.sch.gr/2022/09/23/odhgies-eisagogi-arxes-episthmhs-hy-2022-2023/';
+    const eduProgLA : string = 'https://nickpapag.sites.sch.gr/2022/09/23/odhgies-efarmoges-pliroforikis-a-lykeiou-2022-2023/';
+    const eduProgG : string = 'https://nickpapag.sites.sch.gr/2022/09/14/yli-odhgies-pliroforiki-2022-2023/';
+    const eduProgD : string = 'https://blogs.sch.gr/kmaragos/dimotiko/odigies-didaskalias-gia-tis-tpe-sto-dimotiko-scholeio-gia-to-scholiko-etos-2022-2023/';
+    
     switch (this.scenario.eduProg) {
       case "Γ'Λυκείου":
-        this.eduProg = 'https://www.youtube.com/';
+        this.eduProg = eduProgLG;
         break;
       case "Β'Λυκείου":
-        this.eduProg = 'ΔευτέραΛ';
-        break;
-      case "Α'Λυκείου":
-        this.eduProg = 'https://mail.google.com/';
+        this.eduProg = eduProgLB;
         break;
 
-        case "Γ'Γυμνασίου":
-        this.eduProg = 'ΤρίτηΓ';
+      case "Α'Λυκείου":
+        this.eduProg = eduProgLA;
         break;
+
+      case "Γ'Γυμνασίου":
       case "Β'Γυμνασίου":
-        this.eduProg = 'https://drive.google.com/';
-        break;
       case "Α'Γυμνασίου":
-        this.eduProg = 'ΠρώτηΓ';
+        this.eduProg = eduProgG;
         break;
 
         case "ΣΤ'Δημοτικού":
-        this.eduProg = 'https://www.facebook.com/';
-        break;
       case "Ε'Δημοτικού":
-        this.eduProg = 'ΠέμπτηΔ';
-        break;
       case "Δ'Δημοτικού":
-        this.eduProg = 'ΤετάρτηΔ';
-        break;
         case "Γ'Δημοτικού":
-        this.eduProg = 'ΤρίτηΔ';
-        break;
       case "Β'Δημοτικού":
-        this.eduProg = 'ΔευτέραΔ';
-        break;
       case "Α'Δημοτικού":
-        this.eduProg = 'ΠρώτηΔ';
-        break;
-
-        case "Νηπιαγωγείο":
-        this.eduProg = 'https://openeclass.uom.gr/';
+        this.eduProg = eduProgD;
         break;
 
       default:

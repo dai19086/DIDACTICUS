@@ -102,7 +102,7 @@
                 <div class="mb-3">
                     <label for="method" class="form-label">Μέθοδος Μάθησης</label>
                     <input type="text" class="form-control" id="method" name="method" ngbTooltip="Εξηγήστε τις Θεωρίες Μάθησης που θα  χρσηιμοποιεί το Σενάριό σας." triggers="focus" [(ngModel)]="scenario.method">
-                    <small>Μπορείτε να βρείτε τις υποκειμενικές θεωρίες μάθησης <a href="" target="_blank">εδώ</a>.</small>
+                    <small>Μπορείτε να βρείτε τις υποκειμενικές θεωρίες μάθησης <a href="https://el.wikipedia.org/wiki/%CE%98%CE%B5%CF%89%CF%81%CE%AF%CE%B5%CF%82_%CE%BC%CE%AC%CE%B8%CE%B7%CF%83%CE%B7%CF%82_(%CE%B5%CE%BA%CF%80%CE%B1%CE%AF%CE%B4%CE%B5%CF%85%CF%83%CE%B7)" target="_blank">εδώ</a>.</small>
                 </div>
                 <div class="mb-3">
                     <label for="microChanges" class="form-label">Μικρομεταβολές</label>
@@ -153,7 +153,10 @@
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="button" class="btn btn-info me-md-2">Export PDF</button>
-                <button type="button" class="btn btn-primary me-md-2">Save Scenario</button>
+                <button type="button" class="btn btn-primary me-md-2" (click)="saveButton()" [ngStyle]="{'opacity': buttonOpacity}">Save Scenario</button>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-info me-md-3 " routerLink="/login" [ngStyle]="{'visibility': buttonVisibility}">Log In Here</button>
             </div>
             
         </form>
