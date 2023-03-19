@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as PDFDocument from 'pdfkit';
 
 import { Scenario } from 'src/app/scenario.model';
 import { UserStateService } from 'src/app/shared/auth.service';
