@@ -32,6 +32,14 @@
                 <div class="mb-3">
                     <label for="goals" class="form-label">Στόχοι</label>
                     <small class="text-white">   (Επιλέξτε το πεδίο του κάθε στόχου και περιγράψτε έναν βασικό και προαιρετικά και έναν δευτερεύοντα στόχο του Σεναρίου σας.)</small>
+                    <div>
+                        <label><i>Διαλέξτε σε τι βαθμίδα της ταξινομίας bloom θα θέλατε να απευθύνoνται οι στόχοι του σεναρίου σας.</i></label>
+                        <select class="form-control" style="width: 150px" id="BloomDropdown" name="BloomDropdown" [(ngModel)]="scenario.BloomTaxonomy" (change)="onBloomChange()">
+                            <option value="">Ταξινομία Bloom</option>
+                            <option *ngFor="let level of bloom" [value]="level.value">{{ level.label }}</option>
+                        </select>
+                        <!--TODO Change Bloom generated tooltip to a more useful appearance-->
+                    </div>
                     <div class="row form-group py-1">
                         <div class="col-sm-2">
                             <div class="form-check">
@@ -152,7 +160,7 @@
                 <button type="button" class="btn btn-primary me-md-2" *ngIf="page != 6" (click)="onClickNext()">Next</button>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-info me-md-2">Export PDF</button>
+                <!--<button type="button" class="btn btn-info me-md-2" (click)="downloadAsPDF()">Export PDF</button>-->
                 <button type="button" class="btn btn-primary me-md-2" (click)="saveButton()" [ngStyle]="{'opacity': buttonOpacity}">Save Scenario</button>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

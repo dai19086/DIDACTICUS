@@ -90,7 +90,10 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/stream-browserify/index.js",
+              "node_modules/browserify-zlib/lib/index.js"
+            ]
           }
         }
       }

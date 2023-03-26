@@ -4,6 +4,7 @@ export class Scenario {
   eduProg: string;
   //----------page2
 
+  BloomTaxonomy: string;
   knowledgeGoalsCheck: boolean;
   knowledgeGoals: string;
   skillGoalsCheck: boolean;
@@ -37,6 +38,7 @@ export class Scenario {
     this.duration = '';
     this.eduProg = '';
 
+    this.BloomTaxonomy = '';
     this.knowledgeGoalsCheck = false;
     this.knowledgeGoals = '';
     this.skillGoalsCheck = false;

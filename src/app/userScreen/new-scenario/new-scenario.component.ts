@@ -1,5 +1,11 @@
+//import * as stream from 'stream';
+//import * as zlib from 'zlib';
+
 import { Component } from '@angular/core';
-import * as PDFDocument from 'pdfkit';
+//import * as PDFDocument from 'pdfkit';
+//import { Writable } from 'stream';
+//import { saveAs } from 'file-saver';
+
 
 import { Scenario } from 'src/app/scenario.model';
 import { UserStateService } from 'src/app/shared/auth.service';
@@ -25,9 +31,19 @@ export class NewScenarioComponent {
     { value: "Δ'Δημοτικού", label: "Δ'Δημοτικού" },
     { value: "Γ'Δημοτικού", label: "Γ'Δημοτικού" },
     { value: "Β'Δημοτικού", label: "Β'Δημοτικού" },
-    { value: "Α'Δημοτικού", label: "Α'Δημοτικού" },
+    { value: "Α'Δημοτικού", label: "Α'Δημοτικού" }
   ];
-  goalsTip : string = "Αποφύγετε μη ενεργητικά και αφηρημένα ρήματα όπως 'να μάθουν', 'να γνωρίζουν', 'να κατανοήσου', ή εκφράσεις όπως 'να μπορούν' ή 'να είναι σε θέση'. Αντ' αυτού προτιμήστε ενεργητικά ρήματα για την περιγραφή των στόχων του Σεναρίου σας.";
+
+  bloom = [                               //the options given to the user for the bloom taxonomy of the goals
+    { value: "Απομνημόνευση", label: "Απομνημόνευση" },
+    { value: "Κατανόηση", label: "Κατανόηση" },
+    { value: "Εφαρμογή", label: "Εφαρμογή" },
+    { value: "Ανάλυση", label: "Ανάλυση" },
+    { value: "Αξιολόγηση", label: "Αξιολόγηση" },
+    { value: "Σύνθεση", label: "Σύνθεση" }
+  ]
+
+  goalsTip : string = "Αποφύγετε μη ενεργητικά και αφηρημένα ρήματα. ";
 
 
 
@@ -65,6 +81,34 @@ export class NewScenarioComponent {
   //onClicks for the Next & Previous Buttons
   onClickPrevious(){this.page = this.page -1;}
   onClickNext(){this.page = this.page +1;}
+
+
+  //TODO:
+    //-Change pdf file name
+    //-Add file content
+    //-Fix webpack error
+    
+  //onClick for ExportPDF button
+  /*downloadAsPDF() {
+    const doc = new PDFDocument();
+    const chunks: Uint8Array[] = [];
+    // Creates writable stream that writes the data to a Blob object
+    doc.pipe(new Writable({
+      write: (chunk, encoding, next) => {
+        chunks.push(chunk);
+        next();
+      },
+      final: () => {
+        const blob = new Blob(chunks, { type: 'application/pdf' });
+  
+        // Download the file using the saveAs function
+        saveAs(blob, 'Scenario.pdf');
+      }
+    }));
+    // Arrange the PDF's text
+    doc.text('Hello, world!');
+    doc.end();
+  }*/
 
   //onClick for the Save Button
   saveButton(){
@@ -122,4 +166,49 @@ export class NewScenarioComponent {
         break;
     }
   }
+
+  //used to change the prposed verbs for the goals according to the bloom taxonomy selected.
+  onBloomChange() {
+    //verbs for each level
+    const knowledge = 'θυμάμαι, αναφέρω, εντοπίζω, αντιγράφω, αναμεταδίδω, ονομάζω, περιγράφω, αφηγούμαι, αναγνωρίζω, επιλέγω, δηλώνω, ορίζω, καταλογίζω.';
+    const understanding = 'κατανοώ, οργανώνω , ταξινομώ, ταιριάζω, επιδεικνύω, εξηγώ , ερμηνεύω, δίνω παράδειγμα, κρίνω, δείχνω, αναπαριστώ, διατυπώνω, υποθέτω, προβλέπω, εξηγώ, επαναπροσδιορίζω, αναθεωρώ, μεταφράζω, συνοψίζω.';
+    const applying = 'γενικεύω, λύνω, μεταδίδω, επιλέγω, αξιοποιώ, προβάλω, προεκτίνω, αναθεωρώ, αναγνωρίζω, εξηγώ, ερμηνεύω, κωδικοποιώ, οργανώνω, συστηματοποιώ, δραματοποιώ, σκηνοθετώ, προσωποποιώ, σκιαγραφώ, επιδεικνύω, προτοιμάζω, πραγματοποιώ.';
+    const analyzing = 'αναλύω, διακρίνω, κατηγοριοποιώ, ταξινομώ, διαφοροποιώ, ταυτοποιώ παρατηρώ, υποθέτω, αναδεικνύω, αναδομώ, αποκωδικοποιώ, ανασκοπώ, αντιπαραβάλλω.';
+    const evaluating = 'κρίνω, αποδεικνύω, ασκώ κριτική, επικυρώνω, αξιολογώ, εκτιμώ, μετρώ, ζυγίζω, εξετάζω, ιεραρχώ, συμπεραίνω, επαληθεύω ελέγχω, εκλέγω.';
+    const creating = 'δημιουργώ, σχεδιάζω, επινοώ, επιλύω, ανακαλύπτω, εισάγω, διαγράγω, αναπαριστώ, φαντάζομαι, βελτιώνω, ελαχιστοποιώ, συνδυάζω, συνθέτω, προβλέπω, διαμορφώνω, αναπτύσσω, κατασκευάζω, οργανώνω, παράγω γνώση/ιδέα/έργο.';
+
+    const oldTip = 'Αποφύγετε μη ενεργητικά και αφηρημένα ρήματα. ';  //used to revert to the initial  non selection tip
+    const suggest = 'Προτιμήστε ρήματα όπως: ';   //middle standard text (reusable)
+
+    switch (this.scenario.BloomTaxonomy) {
+      case "Απομνημόνευση":
+        this.goalsTip = oldTip + suggest + knowledge;
+        break;
+      case "Κατανόηση":
+        this.goalsTip = oldTip + suggest + understanding;
+        break;
+
+      case "Εφαρμογή":
+        this.goalsTip = oldTip + suggest + applying;
+        break;
+
+      case "Ανάλυση":
+        this.goalsTip = oldTip + suggest + analyzing;
+        break;
+
+      case "Αξιολόγηση":
+        this.goalsTip = oldTip + suggest + evaluating;
+        break;
+
+      case "Σύνθεση":
+        this.goalsTip = oldTip + suggest + creating;
+        break;
+
+      default:
+        this.goalsTip = oldTip;
+        break;
+    }
+
+  }
+
 }
