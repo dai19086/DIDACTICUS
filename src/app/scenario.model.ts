@@ -66,4 +66,41 @@ export class Scenario {
     this.evaluation = '';
     this.reflection = '';
   }
+
+  //this method is used to modify the data from the scenario class to get them ready for saving on the firestore collection
+  public getFirestoreEntry(){
+    return {
+      title: this.title,
+      duration: this.duration,
+      eduProg: this.eduProg,
+
+      BloomTaxonomy: this.BloomTaxonomy,
+      knowledgeGoalsCheck: this.knowledgeGoalsCheck,
+      knowledgeGoals: this.knowledgeGoals,
+      skillGoalsCheck: this.skillGoalsCheck,
+      skillGoals: this.skillGoals,
+      behaviourGoalsCheck: this.behaviourGoalsCheck,
+      behaviourGoals: this.behaviourGoals,
+
+      description: this.description,
+      sciApproach: this.sciApproach,
+      
+      connections: this.connections,
+      multiApproach: this.multiApproach,
+      toolJusti: this.toolJusti,
+      sources: this.sources,
+      
+      method: this.method,
+      microChanges: this.microChanges,
+      activityEllaboration: this.activityEllaboration,
+      classOrg: this.classOrg,
+      
+      consensus: this.consensus,
+      difficulties: this.difficulties,
+      noise: this.noise,
+      
+      evaluation: this.evaluation,
+      reflection: this.reflection,
+      };
+  }
 }

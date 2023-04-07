@@ -13,6 +13,7 @@ import { NewScenarioComponent } from './userScreen/new-scenario/new-scenario.com
 import { SavedScenariosComponent } from './userScreen/saved-scenarios/saved-scenarios.component';
 import { UserHomeComponent } from './userScreen/user-home/user-home.component';
 import { AngularFireModule } from '@angular/fire/compat';
+import { FirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -34,6 +35,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
+    FirestoreModule,
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule 

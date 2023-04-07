@@ -2,13 +2,15 @@
 //import * as zlib from 'zlib';
 
 import { Component } from '@angular/core';
+import { initializeApp } from '@angular/fire/app';
+import { doc, getFirestore, setDoc, Timestamp } from '@angular/fire/firestore';
 //import * as PDFDocument from 'pdfkit';
 //import { Writable } from 'stream';
 //import { saveAs } from 'file-saver';
 
-
 import { Scenario } from 'src/app/scenario.model';
 import { UserStateService } from 'src/app/shared/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-new-scenario',
@@ -44,18 +46,18 @@ export class NewScenarioComponent {
   ]
 
   goalsTip : string = "Αποφύγετε μη ενεργητικά και αφηρημένα ρήματα. ";
-
-
-
-
   eduProg : string = '';    //link to educational program
 
-  page : number = 0;        //used for dectating the page of the form that is currently displayed
+  
 
-  id : string | undefined = "0";    //the user's id
-  scenario: Scenario = new Scenario();
 
   userExists : boolean = this.user.userLoggedIn;  //for saveButton function
+  id : string | undefined = "0";    //the user's id
+  lastSavedTime : string = '';   //initial timestamp before saving
+  page : number = 0;        //used for dectating the page of the form that is currently displayed
+  scenario: Scenario = new Scenario();
+
+  
 
   //used for button styling for logged in or guest users
   buttonOpacity: number = 1;
@@ -67,15 +69,10 @@ export class NewScenarioComponent {
     this.page = 1;
     this.scenario = new Scenario();
 
+
     setInterval(() => {
         this.userExists = this.user.userLoggedIn;
       },100)            //refreshes the userExists value 10 times per second
-
-      if(this.userExists){
-        this.buttonOpacity = 1;
-      }else{
-        this.buttonOpacity = 0.5;
-      }
   }
 
   //onClicks for the Next & Previous Buttons
@@ -111,15 +108,25 @@ export class NewScenarioComponent {
   }*/
 
   //onClick for the Save Button
-  saveButton(){
+  async saveButton(){
+    const app = initializeApp(environment.firebase);
+    const db = getFirestore(app);
+    
     if(this.userExists){
-      this.id=this.user.currentUser?.uid;
-      alert(this.id);
       //save senario
+      this.id=this.user.currentUser?.uid;
+      const scenarioID = this.id + '_' + this.scenario.title;
+      await setDoc(doc(db, "savedScenarios", scenarioID), this.scenario.getFirestoreEntry());
+
+      const cDate = new Date();
+      this.lastSavedTime = cDate.getDate().toString() + '/' + (cDate.getMonth()+1).toString() + ' ' +
+                           cDate.getHours().toString() + ':' + cDate.getMinutes().toString() + ':' + cDate.getSeconds().toString();
+      
     } else{
-      //decrease opacity and show warning(maybe a button to log in)
+      //notify that you have to be logged in to use this feature
       alert("Only users can access the Save Scenario feature. Please log in and try again!");
-      this.buttonVisibility = 'visible';
+      this.buttonOpacity = 0.5;         //fade save button
+      this.buttonVisibility = 'visible';  //show log in button
     }
   }
 
