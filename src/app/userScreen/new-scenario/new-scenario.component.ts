@@ -2,6 +2,7 @@
 //import * as zlib from 'zlib';
 
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { initializeApp } from '@angular/fire/app';
 import { doc, getFirestore, setDoc, Timestamp } from '@angular/fire/firestore';
 //import * as PDFDocument from 'pdfkit';
@@ -63,11 +64,18 @@ export class NewScenarioComponent {
   buttonOpacity: number = 1;
   buttonVisibility: string = 'hidden';
 
-  constructor (private user :UserStateService) { }
+  constructor (private user :UserStateService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.page = 1;
-    this.scenario = new Scenario();
+
+//    const params = this.route.snapshot.extras;
+//  if (Object.keys(params).length == 0) {
+      this.scenario = new Scenario();
+//      console.log('The page was called without query parameters');
+//    } else {
+//      this.scenario = Scenario.deserialize(params.scenario);
+//    }
 
 
     setInterval(() => {
@@ -114,13 +122,17 @@ export class NewScenarioComponent {
     
     if(this.userExists){
       //save senario
-      this.id=this.user.currentUser?.uid;
-      const scenarioID = this.id + '_' + this.scenario.title;
-      await setDoc(doc(db, "savedScenarios", scenarioID), this.scenario.getFirestoreEntry());
+      if(this.scenario.title === ''){           //setting RULES(cases) that will NOT submitting the scenario
+        alert("YOU CANNOT SAVE A SCENARIO WITHOUT TITLE!")
+      }else{      //if rules met save the scenario
+        this.id=this.user.currentUser?.uid;
+        const scenarioID = this.id + '_' + this.scenario.title;
+        await setDoc(doc(db, "savedScenarios", scenarioID), this.scenario.getFirestoreEntry(this.id));
 
-      const cDate = new Date();
-      this.lastSavedTime = cDate.getDate().toString() + '/' + (cDate.getMonth()+1).toString() + ' ' +
-                           cDate.getHours().toString() + ':' + cDate.getMinutes().toString() + ':' + cDate.getSeconds().toString();
+        const cDate = new Date();
+        this.lastSavedTime = cDate.getDate().toString() + '/' + (cDate.getMonth()+1).toString() + ' ' +
+                            cDate.getHours().toString() + ':' + cDate.getMinutes().toString() + ':' + cDate.getSeconds().toString();
+      }
       
     } else{
       //notify that you have to be logged in to use this feature
