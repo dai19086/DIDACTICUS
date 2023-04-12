@@ -10,12 +10,12 @@
         <span>Scenario Title</span>
       </div>
     </div>
-    <div class="row-1 mb-1" *ngFor="let ScenarioTitle of savedScenariosTitles">
+    <div class="row-1 mb-1" *ngFor="let ScenarioTitle of savedScenariosTitles; let i = index">
       <div class="card">
         <div class="card-body d-flex justify-content-between align-items-center p-1">
-          <span class="me-4">{{ScenarioTitle}}</span>
+          <span class="me-4">{{i+1}}. {{ScenarioTitle}}</span>
           <div class="ms-4">
-            <button type="button" class="btn btn-outline-danger btn-sm me-2">Delete</button>
+            <button type="button" class="btn btn-outline-danger btn-sm me-2" (click)="delete(i)">Delete</button>
             <button type="button" class="btn btn-danger me-2">To PDF</button>
             <button type="button" class="btn btn-primary">Modify Scenario</button>
           </div>
