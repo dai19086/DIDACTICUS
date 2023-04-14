@@ -69,13 +69,14 @@ export class NewScenarioComponent {
   ngOnInit(): void {
     this.page = 1;
 
-//    const params = this.route.snapshot.extras;
-//  if (Object.keys(params).length == 0) {
+    const params = this.route.snapshot.queryParamMap;
+  if (params.has('scenario')) {
+      const scenarioSerialized = params.get('scenario') as string;
+      this.scenario = Scenario.deserialize(scenarioSerialized);
+      console.log('The page was called without query parameters');
+    } else {
       this.scenario = new Scenario();
-//      console.log('The page was called without query parameters');
-//    } else {
-//      this.scenario = Scenario.deserialize(params.scenario);
-//    }
+    }
 
 
     setInterval(() => {

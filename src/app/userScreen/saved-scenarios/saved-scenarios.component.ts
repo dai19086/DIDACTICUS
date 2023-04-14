@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { Scenario } from 'src/app/scenario.model';
 import { MyNavigationExtras } from 'src/app/myNavigationExtras.interface';
 import { initializeApp } from 'firebase/app';
@@ -86,11 +86,13 @@ export class SavedScenariosComponent implements OnInit{
 
   //onClick method for Open Scenario button
   openScenario(scenarioNumber: number){
-    //const requestedData = this.data[scenarioNumber];//gets number of reffered data
-    //const scenarioToOpen = new Scenario();//creates empty scenario
-    //const navigationData: MyNavigationExtras = { scenario: scenarioToOpen};
-    
-    //this.router.navigate(['/newScenario'],navigationData);
+    const scenarioSerialized = this.userSavedScenarios[scenarioNumber].serialize();
+
+    const params: NavigationExtras = {
+      queryParams: { scenario: scenarioSerialized}
+    };
+
+    this.router.navigate(['/newScenario'], params);
   }
 
 }
