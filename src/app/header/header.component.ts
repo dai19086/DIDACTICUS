@@ -28,8 +28,11 @@ export class HeaderComponent {
 
   logOut(){                   //logs out the user if he is logged in and redirects him to the non-(Logged in) page
     if(!(this.user.currentUser == null)){
-      this.auth.logOut();
-      alert('BYE '+ this.user.currentUser.displayName);
+      const confirmation = confirm("Are you sure you want to LOG OUT?");////get confirmation for user log out
+      if (confirmation) {
+        this.auth.logOut();
+        alert('BYE '+ this.user.currentUser.displayName);
+      }
     }else{
       alert('ERROR.No user logged in!')
     }

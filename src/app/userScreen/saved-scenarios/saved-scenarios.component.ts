@@ -72,27 +72,36 @@ export class SavedScenariosComponent implements OnInit{
 
   //onClick for delete scenario button
   async delete(deleteScenario: number){
-    const userID = this.user.currentUser?.uid;  //getting the user's id to create the deleteDocumentID
-    const deleteDocumentID = userID + '_' + this.userSavedScenarios[deleteScenario].title;  //create deleteDocumentID
-    await deleteDoc(doc(this.db,'savedScenarios',deleteDocumentID));  //delete document based on documentID
-    //this ID is specificly saved that way when the scenario is saved and is unique
+    const confirmation = confirm("Are you sure you want to delete this item?");//get confirmation for deleting the item
 
-    //reload page
-    const currentRoute = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-      this.router.navigate([currentRoute]);
-    });
+    if (confirmation) {
+      const userID = this.user.currentUser?.uid;  //getting the user's id to create the deleteDocumentID
+      const deleteDocumentID = userID + '_' + this.userSavedScenarios[deleteScenario].title;  //create deleteDocumentID
+      await deleteDoc(doc(this.db,'savedScenarios',deleteDocumentID));  //delete document based on documentID
+      //this ID is specificly saved that way when the scenario is saved and is unique
+
+      //reload page
+      const currentRoute = this.router.url;
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentRoute]);
+      });
+    }
+  }
+
+  //onClick method for PDF button
+  getPDF(scenarioNumber: number){
+    this.userSavedScenarios[scenarioNumber].getScenarioPDF();     //find the scenario by number and save automatically
   }
 
   //onClick method for Open Scenario button
   openScenario(scenarioNumber: number){
-    const scenarioSerialized = this.userSavedScenarios[scenarioNumber].serialize();
+    const scenarioSerialized = this.userSavedScenarios[scenarioNumber].serialize();   //serialize the saved scenario
 
-    const params: NavigationExtras = {
+    const params: NavigationExtras = {    //add it to the navigation query parameters
       queryParams: { scenario: scenarioSerialized}
     };
 
-    this.router.navigate(['/newScenario'], params);
+    this.router.navigate(['/newScenario'], params); //send it to newScenario page to open
   }
 
 }

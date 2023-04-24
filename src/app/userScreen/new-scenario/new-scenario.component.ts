@@ -78,6 +78,9 @@ export class NewScenarioComponent {
       this.scenario = new Scenario();
     }
 
+    this.onSelect();
+    this.onBloomChange();
+
 
     setInterval(() => {
         this.userExists = this.user.userLoggedIn;
@@ -90,31 +93,12 @@ export class NewScenarioComponent {
 
 
   //TODO:
-    //-Change pdf file name
     //-Add file content
-    //-Fix webpack error
     
   //onClick for ExportPDF button
-  /*downloadAsPDF() {
-    const doc = new PDFDocument();
-    const chunks: Uint8Array[] = [];
-    // Creates writable stream that writes the data to a Blob object
-    doc.pipe(new Writable({
-      write: (chunk, encoding, next) => {
-        chunks.push(chunk);
-        next();
-      },
-      final: () => {
-        const blob = new Blob(chunks, { type: 'application/pdf' });
-  
-        // Download the file using the saveAs function
-        saveAs(blob, 'Scenario.pdf');
-      }
-    }));
-    // Arrange the PDF's text
-    doc.text('Hello, world!');
-    doc.end();
-  }*/
+  downloadAsPDF() {
+    this.scenario.getScenarioPDF();
+  }
 
   //onClick for the Save Button
   async saveButton(){
@@ -125,10 +109,12 @@ export class NewScenarioComponent {
       //save senario
       if(this.scenario.title === ''){           //setting RULES(cases) that will NOT submitting the scenario
         alert("YOU CANNOT SAVE A SCENARIO WITHOUT TITLE!")
-      }else{      //if rules met save the scenario
-        this.id=this.user.currentUser?.uid;
-        const scenarioID = this.id + '_' + this.scenario.title;
-        await setDoc(doc(db, "savedScenarios", scenarioID), this.scenario.getFirestoreEntry(this.id));
+      }else{                                    //IF rules are met
+        this.id=this.user.currentUser?.uid;           //get user ID
+        const scenarioID = this.id + '_' + this.scenario.title;   //create the scenario id that will be stored
+        await setDoc(doc(db, "savedScenarios", scenarioID), this.scenario.getFirestoreEntry(this.id));  //save the scenario
+
+        
 
         const cDate = new Date();
         this.lastSavedTime = cDate.getDate().toString() + '/' + (cDate.getMonth()+1).toString() + ' ' +

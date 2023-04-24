@@ -18,7 +18,7 @@
           <span class="me-4">{{i+1}}. {{ScenarioTitle}}</span>
           <div class="ms-4">
             <button type="button" class="btn btn-outline-danger btn-sm me-2" (click)="delete(i)">Delete</button>
-            <button type="button" class="btn btn-danger me-2">To PDF</button>
+            <button type="button" class="btn btn-danger me-2" (click)="getPDF(i)">To PDF</button>
             <button type="button" class="btn btn-primary" (click)="openScenario(i)">Modify Scenario</button>
           </div>
         </div>
