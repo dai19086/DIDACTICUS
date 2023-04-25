@@ -72,7 +72,7 @@ export class SavedScenariosComponent implements OnInit{
 
   //onClick for delete scenario button
   async delete(deleteScenario: number){
-    const confirmation = confirm("Are you sure you want to delete this item?");//get confirmation for deleting the item
+    const confirmation = confirm("Are you sure you want to DELETE this Scenario? You will NOT be able to undo this action!");//get confirmation for deleting the item
 
     if (confirmation) {
       const userID = this.user.currentUser?.uid;  //getting the user's id to create the deleteDocumentID

@@ -2,7 +2,7 @@
 //import * as zlib from 'zlib';
 
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { initializeApp } from '@angular/fire/app';
 import { doc, getFirestore, setDoc, Timestamp } from '@angular/fire/firestore';
 //import * as PDFDocument from 'pdfkit';
@@ -64,7 +64,7 @@ export class NewScenarioComponent {
   buttonOpacity: number = 1;
   buttonVisibility: string = 'hidden';
 
-  constructor (private user :UserStateService, private route: ActivatedRoute) { }
+  constructor (private user :UserStateService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.page = 1;
@@ -114,8 +114,15 @@ export class NewScenarioComponent {
         const scenarioID = this.id + '_' + this.scenario.title;   //create the scenario id that will be stored
         await setDoc(doc(db, "savedScenarios", scenarioID), this.scenario.getFirestoreEntry(this.id));  //save the scenario
 
-        
 
+        //reload with new url to ensure that the changes are saved in the page in case the user reloads
+        const scenarioSerialized = this.scenario.serialize();
+        const params: NavigationExtras = {    //add the saved serialized scenario to the navigation extras
+          queryParams: { scenario: scenarioSerialized}
+        };
+        this.router.navigate(['/newScenario'], params); //reload the page with the scenario saved in the url for safe reload
+
+        //show banner with confirmation of saving
         const cDate = new Date();
         this.lastSavedTime = cDate.getDate().toString() + '/' + (cDate.getMonth()+1).toString() + ' ' +
                             cDate.getHours().toString() + ':' + cDate.getMinutes().toString() + ':' + cDate.getSeconds().toString();
