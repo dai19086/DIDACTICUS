@@ -1,13 +1,7 @@
-//import * as stream from 'stream';
-//import * as zlib from 'zlib';
-
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { initializeApp } from '@angular/fire/app';
 import { doc, getFirestore, setDoc, Timestamp } from '@angular/fire/firestore';
-//import * as PDFDocument from 'pdfkit';
-//import { Writable } from 'stream';
-//import { saveAs } from 'file-saver';
 
 import { Scenario } from 'src/app/scenario.model';
 import { UserStateService } from 'src/app/shared/auth.service';
@@ -82,8 +76,8 @@ export class NewScenarioComponent {
   
 
   //used for button styling for logged in or guest users
-  buttonOpacity: number = 1;
-  buttonVisibility: string = 'hidden';
+  buttonOpacity: number = 1;            //opacity for save button
+  buttonVisibility: string = 'hidden';  //visibility for log in button
 
   constructor (private user :UserStateService, private route: ActivatedRoute, private router: Router) { }
 
