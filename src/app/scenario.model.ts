@@ -7,7 +7,6 @@ export class Scenario {
   title: string;
   duration: string;
   eduProg: string;
-  //----------page2
 
   BloomTaxonomy: string;
   knowledgeGoalsCheck: boolean;
@@ -19,21 +18,20 @@ export class Scenario {
 
   description: string;
   sciApproach: string;
-  //--------------page3
+  
   connections: string;
   multiApproach: string;
   toolJusti: string;
   sources: string;
-  //----------page4
+
   method: string;
   microChanges: string;
   activityEllaboration: string;
   classOrg: string;
-  //------------page5
+
   consensus: string;
   difficulties: string;
   noise: string;
-  //--------------page6
   evaluation: string;
   reflection: string;
 

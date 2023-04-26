@@ -12,17 +12,27 @@
             
             <div *ngIf="page==1">
                 <h3>Βασικές πληροφορίες σεναρίου (1/10)</h3>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="title" class="form-label">Τίτλος</label>
                     <input type="text" class="form-control" id="title" name="title" ngbTooltip="ΒΕΒΑΙΩΘΕΙΤΕ ΟΤΙ Ο ΤΙΤΛΟΣ ΕΙΝΑΙ ΜΟΝΑΔΙΚΟΣ! Σενάρια με ίδιο τίτλο ΑΝΤΙΚΑΘΙΣΤΟΝΤΑΙ μόλις αποθηκεύονται!" triggers="focus" [(ngModel)]="scenario.title">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[0]" (click)="showTip(0)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[0]" (click)="hideTip(0)">Hide TIP</button>
+                    </div>
+                    
                 </div>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="duration" class="form-label">Εκτιμώμενη Διάρκεια</label>
                     <input type="text" class="form-control" id="duration" name="duration" ngbTooltip="Πόσο θα διαρκέσει το Σενάριο;" triggers="focus" [(ngModel)]="scenario.duration">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[1]" (click)="showTip(1)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[1]" (click)="hideTip(1)">Hide TIP</button>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="eduProg" class="form-label">Τάξη</label>
-                    <select class="form-control" id="eduProgDropdown" name="eduProgDropdown" ngbTooltip="Για ποια Τάξη προορίζεται το Σενάριο;" triggers="focus" [(ngModel)]="scenario.eduProg" (change)="onSelect()">
+                    <small class="text-white">   (Επιλέξτε για ποια Τάξη προορίζεται το Σενάριό σας.)</small>
+                    <select class="form-control" id="eduProgDropdown" name="eduProgDropdown" [(ngModel)]="scenario.eduProg" (change)="onSelect()">
                         <option value="">Διαλέξτε Τάξη</option>
                         <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
                         </select>
@@ -50,7 +60,7 @@
                             </div>
                         </div>
                         <div class="col-sm-10" *ngIf="scenario.knowledgeGoalsCheck == true">
-                            <textarea class="form-control" id="knowledgeGoals" rows="5" name="knowledgeGoals" ngbTooltip="{{goalsTip}}" triggers="focus" [(ngModel)]="scenario.knowledgeGoals"></textarea>
+                            <textarea class="form-control" id="knowledgeGoals" rows="5" name="knowledgeGoals" [(ngModel)]="scenario.knowledgeGoals"></textarea>
                         </div>
                       </div>
                       <div class="row form-group py-1">
@@ -61,7 +71,7 @@
                             </div>
                         </div>
                         <div class="col-sm-10" *ngIf="scenario.skillGoalsCheck == true">
-                            <textarea class="form-control" id="skillGoals" rows="5" name="skillGoals" ngbTooltip="{{goalsTip}}" triggers="focus" [(ngModel)]="scenario.skillGoals"></textarea>
+                            <textarea class="form-control" id="skillGoals" rows="5" name="skillGoals" [(ngModel)]="scenario.skillGoals"></textarea>
                         </div>
                       </div>
                       <div class="row form-group py-1">
@@ -72,83 +82,131 @@
                             </div>
                         </div>
                         <div class="col-sm-10" *ngIf="scenario.behaviourGoalsCheck == true">
-                            <textarea class="form-control" id="behaviourGoals" rows="5" name="behaviourGoals" ngbTooltip="{{goalsTip}}" triggers="focus" [(ngModel)]="scenario.behaviourGoals"></textarea>
+                            <textarea class="form-control" id="behaviourGoals" rows="5" name="behaviourGoals" [(ngModel)]="scenario.behaviourGoals"></textarea>
                         </div>
                       </div>
-                    <small class="text-danger">ΠΡΟΣΟΧΗ!!! Οι στόχοι θα πρέπει να είναι συνοπτικοί, μη βερμπαλιστικοί, επαρκώς ορισμένοι και ρεαλιστικοί σε σχέση με τα πλαίσια του μαθήματος (γνωστικό επίπεδο μαθητών, διάρκεια μαθήματος, διαθέσιμο λογισμικό)!</small>
+                    <small class="text-danger"><b>ΠΡΟΣΟΧΗ!!! Οι στόχοι θα πρέπει να είναι συνοπτικοί, μη βερμπαλιστικοί, επαρκώς ορισμένοι και ρεαλιστικοί σε σχέση με τα πλαίσια του μαθήματος (γνωστικό επίπεδο μαθητών, διάρκεια μαθήματος, διαθέσιμο λογισμικό)!</b></small>
                 </div>
             </div>
 
             <div *ngIf="page == 3">
                 <h3>Περιγραφή Σεναρίου (3/10)</h3>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="description" class="form-label">Συνοπτική Περιγραφή</label>
-                    <textarea class="form-control" id="description" rows="6" name="description" ngbTooltip="Κεντρική ιδέα + χρονοδιάγραμμα εκτέλεσης + ρόλοι συντελεστών." triggers="focus" [(ngModel)]="scenario.description"></textarea>
+                    <textarea class="form-control" id="description" rows="6" name="description" [(ngModel)]="scenario.description"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[2]" (click)="showTip(2)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[2]" (click)="hideTip(2)">Hide TIP</button>
+                    </div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="sciApproach" class="form-label">Επιστημολογική Προσέγγιση</label>
-                    <textarea class="form-control" id="sciApproach" rows="6" name="sciApproach" ngbTooltip="Σύντομη εξήγηση της επιστημονικής σπουδαιότητας του αντικειμένου και εννοιολογική σύνδεση με προηγούμενα γνώσεων." triggers="focus" [(ngModel)]="scenario.sciApproach"></textarea>
+                    <textarea class="form-control" id="sciApproach" rows="6" name="sciApproach" [(ngModel)]="scenario.sciApproach"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[3]" (click)="showTip(3)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[3]" (click)="hideTip(3)">Hide TIP</button>
+                    </div>
                 </div>
             </div>
 
             <div *ngIf="page == 4">
                 <h3>Περιγραφή Σεναρίου (4/10)</h3>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="connections" class="form-label">Διασυνδέσεις Εννοιών και Δραστηριοτήτων</label>
-                    <textarea class="form-control" id="connections" rows="6" name="connections" ngbTooltip="Συνδέστε το θέμα με την υπόλοιπη εκπαιδευτική διαδικασία και το συσχετίζουμε με περεταίρω δραστηριότητες για την εμβάθυνσή του." triggers="focus" [(ngModel)]="scenario.connections"></textarea>
+                    <textarea class="form-control" id="connections" rows="6" name="connections" [(ngModel)]="scenario.connections"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[4]" (click)="showTip(4)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[4]" (click)="hideTip(4)">Hide TIP</button>
+                    </div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="multiApproach" class="form-label">Πολλαπλές Αναπαραστάσεις και Προσεγγίσεις</label>
-                    <textarea class="form-control" id="multiApproach" rows="6" name="multiApproach" ngbTooltip="Αναφορά άλλων πλαισίων εκφοράς ή αναπαράστασης των διδασκούμενων εννοιών." triggers="focus" [(ngModel)]="scenario.multiApproach"></textarea>
+                    <textarea class="form-control" id="multiApproach" rows="6" name="multiApproach" [(ngModel)]="scenario.multiApproach"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[5]" (click)="showTip(5)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[5]" (click)="hideTip(5)">Hide TIP</button>
+                    </div>
                 </div>
             </div>
 
             <div *ngIf="page == 5">
                 <h3>Περιγραφή Σεναρίου (5/10)</h3>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="difficulties" class="form-label">Πρόβλεψη Δυσκολιών</label>
-                    <textarea class="form-control" id="difficulties" rows="6" name="difficulties" ngbTooltip="Τι δυσκολίες προβλέπετε να αντιμετωπίσετε κατά την διάρκεια της εκτέλεσης του σεναρίου;" triggers="focus" [(ngModel)]="scenario.difficulties"></textarea>
+                    <textarea class="form-control" id="difficulties" rows="6" name="difficulties" [(ngModel)]="scenario.difficulties"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[6]" (click)="showTip(6)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[6]" (click)="hideTip(6)">Hide TIP</button>
+                    </div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="toolJusti" class="form-label">Αιτιολόγηση Εργαλείων</label>
-                    <textarea class="form-control" id="toolJusti" rows="6" name="toolJusti" ngbTooltip="Εξηγήστε τι εργαλεία θα χρησιμοποιηθούν για την διαδικασία της μάθησης (π.χ. Υπολογιστής, Προτζέκτορας, κάποιο ψηφιακό εργαλείο κλπ.) και για ποιό λόγο το καθένα." triggers="focus" [(ngModel)]="scenario.toolJusti"></textarea>
+                    <textarea class="form-control" id="toolJusti" rows="6" name="toolJusti" [(ngModel)]="scenario.toolJusti"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[7]" (click)="showTip(7)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[7]" (click)="hideTip(7)">Hide TIP</button>
+                    </div>
                 </div>
             </div>
             
             <div *ngIf="page == 6">
                 <h3>Περιγραφή Σεναρίου (6/10)</h3>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="noise" class="form-label">Διδακτικός Θόρυβος</label>
-                    <textarea class="form-control" id="noise" rows="6" name="noise" ngbTooltip="Τι διδακτικό θόρυβο αναμένετε και πως θα τον αντιμετωπίσετε." triggers="focus" [(ngModel)]="scenario.noise"></textarea>
+                    <textarea class="form-control" id="noise" rows="6" name="noise" [(ngModel)]="scenario.noise"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[8]" (click)="showTip(8)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[8]" (click)="hideTip(8)">Hide TIP</button>
+                    </div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="sources" class="form-label">Εξωτερικές Πηγές</label>
-                    <textarea class="form-control" id="sources" rows="6" name="sources" ngbTooltip="Προσθήκη βιβλιογραφίας/διαδικτυογραφίας." triggers="focus" [(ngModel)]="scenario.sources"></textarea>
+                    <textarea class="form-control" id="sources" rows="6" name="sources" [(ngModel)]="scenario.sources"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[9]" (click)="showTip(9)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[9]" (click)="hideTip(9)">Hide TIP</button>
+                    </div>
                 </div>
             </div>
 
             <div *ngIf="page == 7">
                 <h3>Περιγραφή Σεναρίου (7/10)</h3>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="method" class="form-label">Υποκειμενική Θεωρία Μάθησης</label>
-                    <input type="text" class="form-control" id="method" name="method" ngbTooltip="Εξηγήστε τις Θεωρίες Μάθησης που θα  χρσηιμοποιεί το Σενάριό σας." triggers="focus" [(ngModel)]="scenario.method">
+                    <input type="text" class="form-control" id="method" name="method" [(ngModel)]="scenario.method">
                     <small>Μπορείτε να βρείτε τις υποκειμενικές θεωρίες μάθησης <a href="https://el.wikipedia.org/wiki/%CE%98%CE%B5%CF%89%CF%81%CE%AF%CE%B5%CF%82_%CE%BC%CE%AC%CE%B8%CE%B7%CF%83%CE%B7%CF%82_(%CE%B5%CE%BA%CF%80%CE%B1%CE%AF%CE%B4%CE%B5%CF%85%CF%83%CE%B7)" target="_blank">εδώ</a>.</small>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[10]" (click)="showTip(10)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[10]" (click)="hideTip(10)">Hide TIP</button>
+                    </div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="microChanges" class="form-label">Μικρομεταβολές</label>
-                    <textarea class="form-control" id="microChanges" rows="6" name="microChanges" ngbTooltip="Παρουσιάστε προσαρμογές που θα πρέπει να γίνουν στον τρόπο διδασκαλίας." triggers="focus" [(ngModel)]="scenario.microChanges"></textarea>
+                    <textarea class="form-control" id="microChanges" rows="6" name="microChanges" [(ngModel)]="scenario.microChanges"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[11]" (click)="showTip(11)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[11]" (click)="hideTip(11)">Hide TIP</button>
+                    </div>
                 </div>
             </div>
 
             <div *ngIf="page == 8">
                 <h3>Περιγραφή Σεναρίου (8/10)</h3>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="consensus" class="form-label">Διδακτικό Συμβόλαιο</label>
-                    <textarea class="form-control" id="consensus" rows="6" name="consensus" ngbTooltip="Αναπτύξτε το  διδακτικό συμβόλαιο που προϋποθέτη το Σενάριό σας." triggers="focus" [(ngModel)]="scenario.consensus"></textarea>
+                    <textarea class="form-control" id="consensus" rows="6" name="consensus" [(ngModel)]="scenario.consensus"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[12]" (click)="showTip(12)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[12]" (click)="hideTip(12)">Hide TIP</button>
+                    </div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="classOrg" class="form-label">Οργάνωση Τάξης κι Εφικτότητα</label>
-                    <textarea class="form-control" id="classOrg" rows="6" name="classOrg" ngbTooltip="Εξηγήστε πως θα προτείνατε να οργανωθούν οι μαθητές για την εκτέλεση του Σεναρίου." triggers="focus" [(ngModel)]="scenario.classOrg"></textarea>
+                    <textarea class="form-control" id="classOrg" rows="6" name="classOrg" [(ngModel)]="scenario.classOrg"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[13]" (click)="showTip(13)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[13]" (click)="hideTip(13)">Hide TIP</button>
+                    </div>
                 </div>
                 
                 
@@ -156,9 +214,13 @@
 
             <div *ngIf="page == 9">
                 <h3>Φύλλα Εργασίας (9/10)</h3>
-                <div class="mb-3">
+                <div class="mb-1">
                     <label for="activityEllaboration" class="form-label">Ανάλυση Φύλλων Εργασίας</label>
-                    <textarea class="form-control" id="activityEllaboration" rows="10" name="activityEllaboration" ngbTooltip="Επεκταθείτε στο πως θα δημιουργηθούν και θα αξιοποιηθούν τα φύλλα εργασίας." triggers="focus" [(ngModel)]="scenario.activityEllaboration"></textarea>
+                    <textarea class="form-control" id="activityEllaboration" rows="10" name="activityEllaboration" [(ngModel)]="scenario.activityEllaboration"></textarea>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[14]" (click)="showTip(14)">Give me a TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[14]" (click)="hideTip(14)">Hide TIP</button>
+                    </div>
                 </div>
             </div>
 
@@ -175,11 +237,17 @@
                 </div>
             </div>
 
+            <div class="text-black card p-2 py-1 rounded mb-1" style="background-color: rgb(233, 229, 229);" *ngIf="tip != ''">
+                <label><i>TIP</i></label>
+                <small>{{tip}}</small>
+            </div>
+
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <button type="button" class="btn btn-info me-md-2" *ngIf="page != 1" (click)="onClickPrevious()">Previous</button>
-                <button type="button" class="btn btn-primary me-md-2" *ngIf="page != 10" (click)="onClickNext()">Next</button>
+                <button type="button" class="btn btn-info me-md-2" *ngIf="page != 1" (click)="onClickNextPrevious('previous')">Previous</button>
+                <button type="button" class="btn btn-primary me-md-2" *ngIf="page != 10" (click)="onClickNextPrevious('next')">Next</button>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-word me-md-2" (click)="downloadAsTXT()">Export TXT</button>
                 <button type="button" class="btn btn-danger me-md-2" (click)="downloadAsPDF()">Export PDF</button>
                 <button type="button" class="btn btn-primary me-md-2" (click)="saveButton()" [ngStyle]="{'opacity': buttonOpacity}">Save Scenario</button>
             </div>

@@ -12,3 +12,18 @@ a[href] {
   flex-direction: column;
   min-height: 100vh;
 }
+
+.btn-show{
+  background-color: #703342;
+  color: #ffffff;
+}
+
+.btn-hide{
+  background-color: #7FC9AA;
+  color: #000000;
+}
+
+.btn-word{
+  background-color: #1B5EBE;
+  color: #ffffff;
+}
