@@ -22,6 +22,7 @@
     "@firebase/installations": "^0.6.3",
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "bootstrap": "^5.2.3",
+    "docx": "^8.0.3",
     "faker": "^6.6.6",
     "file-saver": "^2.0.5",
     "firebase": "^9.19.1",

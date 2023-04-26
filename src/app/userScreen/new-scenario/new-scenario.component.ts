@@ -151,9 +151,10 @@ export class NewScenarioComponent {
     this.tip = '';
   }
 
-  //onClick for ExportTXT button
-  downloadAsTXT(){
-
+  //onClick for ExportDOCX button
+  downloadAsDOCX(){
+    //call the DOCX method for the current scenario
+    this.scenario.getScenarioDOCX();
   }
 
   //onClick for ExportPDF button
