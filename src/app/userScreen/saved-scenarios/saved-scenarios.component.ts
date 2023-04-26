@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Scenario } from 'src/app/scenario.model';
-import { MyNavigationExtras } from 'src/app/myNavigationExtras.interface';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { collection, deleteDoc, doc, getDocs, getFirestore, query, where } from 'firebase/firestore';
@@ -17,11 +16,11 @@ import { Firestore } from '@angular/fire/firestore';
 })
 export class SavedScenariosComponent implements OnInit{
 
-  userSavedScenarios: Scenario[] = [];
-  savedScenariosTitles: string[] = [];
-  loading: boolean = true;
+  userSavedScenarios: Scenario[] = [];  //here are stored the data from all the user's saved scenarios
+  savedScenariosTitles: string[] = [];  //here are the titles of the user's saved scenarios for display
+  loading: boolean = true;    //used to control the display of the loading indicator
 
-  db!: Firestore;
+  db!: Firestore;       //this is the instance of the Firestore database initialized in the ngOnInit method
   
 
 
@@ -52,7 +51,7 @@ export class SavedScenariosComponent implements OnInit{
                                                   sData['connections'],sData['multiApproach'],sData['toolJusti'],
                                                   sData['sources'],sData['method'],sData['microchanges'],sData['activityEllaboration'],
                                                   sData['classOrg'],sData['consensus'],sData['difficulties'],
-                                                  sData['noise'],sData['evaluation'],sData['reflection']);            //create the Scenario
+                                                  sData['noise'],sData['evaluation'],sData['reflection']);      //create the Scenario
               this.userSavedScenarios.push(loadedScenario);     //store Scenario locally before moving up to the next one
               this.savedScenariosTitles.push(sData['title']);   //add scenario title in an array to display
               console.log(doc.id, ' => ', sData['title']);
