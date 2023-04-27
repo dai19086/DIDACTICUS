@@ -17,6 +17,7 @@ import { FirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ForgotPassComponent } from './auth/forgot-pass/forgot-pass.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SignupComponent,
     NewScenarioComponent,
     SavedScenariosComponent,
-    UserHomeComponent
+    UserHomeComponent,
+    ForgotPassComponent
   ],
   imports: [
     BrowserModule,

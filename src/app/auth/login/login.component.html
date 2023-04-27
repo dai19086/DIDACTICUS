@@ -18,13 +18,15 @@
     
             <div class="mb-3">
               <input type="password" class="form-control" id="password" placeholder="Password" name="password" [(ngModel)]="password">
+              <a routerLink="/forgotPass" class="text-danger">Forgot Password?</a>
             </div>
     
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="button" class="btn btn-primary me-md-2" (click)="login()">Log In</button>
             </div>
     
-            <a routerLink="/signup" class="text-primary">Haven't Signed Up yet?</a>        
+            <a routerLink="/signup" class="text-primary">Haven't Signed Up yet?</a>
+                  
           </form>
     </div>
     <div class="col-md-4"></div>

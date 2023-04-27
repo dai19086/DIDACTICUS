@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ForgotPassComponent } from './auth/forgot-pass/forgot-pass.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { HomeComponent } from './home/home.component';
@@ -11,10 +12,10 @@ const routes: Routes = [
   {path:'', component: HomeComponent},
   {path:'login', component: LoginComponent},
   {path:'signup', component: SignupComponent},
+  {path:'forgotPass', component: ForgotPassComponent},
   {path:'newScenario', component: NewScenarioComponent},
   {path:'savedScenarios', component: SavedScenariosComponent},
   {path:'userHome', component: UserHomeComponent}
-
 ];
 
 @NgModule({

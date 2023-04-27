@@ -65,5 +65,15 @@ export class AuthService {
       alert(err.message);
     })
   }
+
+  //forgot password method
+  async forgotPass(email: string) : Promise<boolean> {
+    return this.fireauth.sendPasswordResetEmail(email).then(() => {
+      return true;
+    }, err => {
+      alert('Something went wrong! Email NOT SENT!');
+      return false;
+    });
+  }
   
 }
