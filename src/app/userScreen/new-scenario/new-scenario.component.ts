@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { initializeApp } from '@angular/fire/app';
-import { doc, getFirestore, setDoc, Timestamp } from '@angular/fire/firestore';
+import { collection, doc, getDocs, getFirestore, query, setDoc, Timestamp, where } from '@angular/fire/firestore';
 
 import { Scenario } from 'src/app/scenario.model';
 import { UserStateService } from 'src/app/shared/auth.service';
@@ -78,6 +78,8 @@ export class NewScenarioComponent {
   //used for button styling for logged in or guest users
   buttonOpacity: number = 1;            //opacity for save button
   buttonVisibility: string = 'hidden';  //visibility for log in button
+  saveBtnText: string = 'Save Scenario';  //used for save scenario button
+  savedScenariosLimit: number = 20;  //number of available saved scenarios for each user
 
   constructor (private user :UserStateService, private route: ActivatedRoute, private router: Router) { }
 
@@ -94,7 +96,6 @@ export class NewScenarioComponent {
   if (params.has('scenario')) {
       const scenarioSerialized = params.get('scenario') as string;
       this.scenario = Scenario.deserialize(scenarioSerialized);     //initialize page with preloaded scenario
-      console.log('The page was called without query parameters');
     } else {
       this.scenario = new Scenario();                               //initialize page with new empty scenario
     }
@@ -107,6 +108,7 @@ export class NewScenarioComponent {
     setInterval(() => {
         this.userExists = this.user.userLoggedIn;
       },100)            //refreshes the userExists value 10 times per second
+      console.log("New Scenario Page loaded successfully!")
   }
 
   //onClick for the Next & Previous step Buttons
@@ -159,31 +161,68 @@ export class NewScenarioComponent {
 
   //onClick for the Save Button
   async saveButton(){
-    //initialize firebase database
-    const app = initializeApp(environment.firebase);
-    const db = getFirestore(app);
-    
     if(this.userExists){  //check if user exists and should be able to save the scenario
-      //save senario
+      const saveScenarioText = this.saveBtnText;  //used to maintain the initial button text
+      this.saveBtnText = "Saving....";          //change the button text while waiting to save
+      //initialize firebase database
+      const app = initializeApp(environment.firebase);  //initializing app
+      const db = getFirestore(app);                     //getting Firestore Database instance
+
       if(this.scenario.title === ''){           //setting RULES(cases) that will NOT be submitting the scenario
         alert("YOU CANNOT SAVE A SCENARIO WITHOUT TITLE!")
       }else{                                    //IF rules are met
-        this.id=this.user.currentUser?.uid;           //get user ID
-        const scenarioID = this.id + '_' + this.scenario.title;   //create the scenario id that will be stored
-        await setDoc(doc(db, "savedScenarios", scenarioID), this.scenario.getFirestoreEntry(this.id));  //save the scenario
+        //look at the rest of this user's saved scenarios
+        const userID = this.user.currentUser?.uid;  //getting the user's id to use it for searching the database
+        const qUserScenarios = query(collection(db, 'savedScenarios'), where('uid', '==', userID)); //preparing query for database
+        const savedScenariosTitles: string[] = [];  //create an array with the titles to check for existence of title trying to be saved
+        //fetching data
+        console.log("start loading");
+        await getDocs(qUserScenarios)
+          .then((querySnap) => {
+            //preparing data
+            querySnap.forEach((doc) => {                    //for each document retrieved
+              const sData = doc.data();                         //get document with the Scenario's data
+              savedScenariosTitles.push(sData['title']);        //add scenario title in savedScenariosTitles array
+              console.log(sData['title']);
+            });
+          }).catch((error) => {console.log(error);});   //signalling error
+          console.log("finished loading " + savedScenariosTitles.length + " titles");
+      
+        let proceedSave: boolean = false;   //flag that finally allows the saving process
+        
+        if (savedScenariosTitles.includes(this.scenario.title)){  //if Scenario with the same title already exists ask if the user means to replace it
+          proceedSave = confirm("A scenario with the title " + this.scenario.title + " already exists. Saving this scenario will replace the existing one. WOULD YOU LIKE TO REPLACE THE SCENARIO: " + this.scenario.title + " ?");
+        }else{  //this is a new saved scenario
+          if (savedScenariosTitles.length<this.savedScenariosLimit){    //checking if the number of scenarios is less than the maximum set(20)
+            proceedSave = confirm("After saving this Scenario you will have " + (savedScenariosTitles.length + 1) + " Saved Scenarios (The limit is " + this.savedScenariosLimit + "). Would you like to proceed saving the Scenario: " + this.scenario.title + " ?");
+          }else{
+            //if the maximum has been reached inform the user
+            alert("You CANNOT save more than " + this.savedScenariosLimit + " Scenarios! To save another scenario you have to delete one of your older Scenarios. Otherwise you can try exporting your Scenario as a .pdf or a .docx file.")
+          }
+        }
+
+        if(proceedSave){
+          //save senario
+          this.id=this.user.currentUser?.uid;           //get user ID
+          const scenarioID = this.id + '_' + this.scenario.title;   //create the scenario id that will be stored
+          await setDoc(doc(db, "savedScenarios", scenarioID), this.scenario.getFirestoreEntry(this.id));  //save the scenario
 
 
-        //reload with new url to ensure that the changes are saved in the page in case the user reloads
-        const scenarioSerialized = this.scenario.serialize();
-        const params: NavigationExtras = {    //add the saved serialized scenario to the navigation extras
-          queryParams: { scenario: scenarioSerialized}
-        };
-        this.router.navigate(['/newScenario'], params); //reload the page with the scenario saved in the url for safe reload
+          //reload with new url to ensure that the changes are saved in the page in case the user reloads
+          const scenarioSerialized = this.scenario.serialize();
+          const params: NavigationExtras = {    //add the saved serialized scenario to the navigation extras
+            queryParams: { scenario: scenarioSerialized}
+          };
+          this.router.navigate(['/newScenario'], params); //reload the page with the scenario saved in the url for safe reload
 
-        //show banner with confirmation of saving
-        const cDate = new Date();
-        this.lastSavedTime = cDate.getDate().toString() + '/' + (cDate.getMonth()+1).toString() + ' ' +
-                            cDate.getHours().toString() + ':' + cDate.getMinutes().toString() + ':' + cDate.getSeconds().toString();
+          //show banner with confirmation of saving
+          const cDate = new Date();
+          this.lastSavedTime = cDate.getDate().toString() + '/' + (cDate.getMonth()+1).toString() + ' ' +
+                              cDate.getHours().toString() + ':' + cDate.getMinutes().toString() + ':' + cDate.getSeconds().toString();
+        }
+
+        this.saveBtnText = saveScenarioText;  //revert to the original button's text
+
       }
       
     } else{
