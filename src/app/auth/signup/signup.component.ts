@@ -11,6 +11,7 @@ export class SignupComponent {
   username : string = '';
   email : string = '';
   password : string = '';
+  confirmPassword : string = '';
 
 
   constructor (private auth : AuthService) { }
@@ -22,25 +23,32 @@ export class SignupComponent {
   signup() {
 
     if(this.username == ''){
-      alert('Please enter username');
+      alert('Παρακαλώ εισάγετε το όνομα χρήστη.');
       return;
     }
 
     if(this.email == ''){
-      alert('Please enter email');
+      alert('Παρακαλώ εισάγετε email');
       return;
     }
 
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(this.email)) {
-      alert('Invalid email. Please try again!')
+      alert('Μη έγκυρο email. Παρακαλώ προσπαθήστε ξανά!')
       this.email='';
       return;
     }
 
     if(this.password == '' || this.password.length<6){
-      alert('Please enter a password with 6 or more characters.');
+      alert('Παρακαλώ εισάγετε έναν ασφαλή κωδικό με 6 ή παραπάνω χαρακτήρες.');
       this.password='';
+      return;
+    }
+
+    if(this.password != this.confirmPassword){
+      alert('Ο Κωδικός και η Επιβεβαίωση Κωδικού πρέπει να ταυτίζονται!');
+      this.password = '';
+      this.confirmPassword = '';
       return;
     }
     
@@ -49,6 +57,7 @@ export class SignupComponent {
     this.username='';
     this.email='';
     this.password='';
+    this.confirmPassword = '';
   }
 
 }

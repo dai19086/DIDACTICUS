@@ -1,16 +1,16 @@
 <div class="h-100 d-flex align-items-center justify-content-center" style="background-color: #a7ffcd;" >
     <div>
         <div *ngIf="usernameExists" class="welcomeBanner" [@fade]>
-            <h1>Welcome, {{username}}!</h1>
-            <h3>How can we help you today?</h3>
+            <h1>Καλωσήρθες, {{username}}!</h1>
+            <h3>Πώς μπορούμε να σε βοηθήσουμε σήμερα;</h3>
         </div>
         <hr class="hr hr-blurry" />
         <table>
             <tr>
                 <td></td>
-                <td><button type="button" class="btn btn-info" routerLink="/savedScenarios">SAVED SCENARIOS</button></td>
+                <td><button type="button" class="btn btn-info" routerLink="/savedScenarios">ΣΕΝΑΡΙΑ ΜΟΥ</button></td>
                 <td></td>
-                <td><button type="button" class="btn btn-lg btn-success" routerLink="/newScenario">NEW SCENARIO</button></td>
+                <td><button type="button" class="btn btn-lg btn-success" routerLink="/newScenario">ΔΗΜΙΟΥΡΓΙΑ ΝΕΟΥ ΣΕΝΑΡΙΟΥ</button></td>
                 <td></td>
             </tr>
         </table>

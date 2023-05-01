@@ -1,36 +1,41 @@
-<div class=" h-100 container-fluid" style="background-color: #a7ffcd;" >
+<div style="background-color: #a7ffcd; height: 100vh; overflow: auto;" >
     <div class="row  justify-content-md-center">
      <div class="col-md-4 mt-2">
-         <h1>Welcome to DIDACTICUS!</h1><br>
-         <h5 class="fs-6" style="opacity: 50%;">You can sign up here.</h5>
+         <h1>Καλώς ορίσατε στο DIDACTICUS!</h1><br>
+         <h5 class="fs-6" style="opacity: 50%;">Εδώ μπορείτε να κάνετε Εγγραφή.</h5>
      </div>
     </div>
      <div class="row">
      <div class="col-md-4"></div>
      <div class="col-md-4 mb-2">
          <form>
-             <h3 class="text-primary mb-3">Sign Up</h3>
+             <h3 class="text-primary mb-3">Εγγραφή</h3>
 
              <div class="mb-3">
-                <input type="text" class="form-control" id="username" placeholder="Username" aria-describedby="usernameHelp" name="username" [(ngModel)]="username">
-                <div id="usernameHelp" class="form-text">Please enter your username.</div>
+                <input type="text" class="form-control" id="username" placeholder="Όνομα Χρήστη" aria-describedby="usernameHelp" name="username" [(ngModel)]="username">
+                <div id="usernameHelp" class="form-text">Παρακαλώ εισάγετε το Όνομα Χρήστη.</div>
               </div>
      
              <div class="mb-3">
                <input type="email" class="form-control" id="email" placeholder="Email" aria-describedby="emailHelp" name="email" [(ngModel)]="email">
-               <div id="emailHelp" class="form-text">Please enter your email address. Be careful you will be asked to log in with this email</div>
+               <div id="emailHelp" class="form-text">Παρακαλώ εισάγετε τη διεύθυνση email σας. ΠΡΟΣΟΧΗ! Θα σας ζητηθεί να συνδεθείτε με αυτό το email.</div>
              </div>
      
              <div class="mb-3">
-               <input type="password" class="form-control" id="password" placeholder="Password" aria-describedby="passwordlHelp" name="password" [(ngModel)]="password">
-               <div id="passwordlHelp" class="form-text">Please enter a secure password.</div>
+               <input type="password" class="form-control" id="password" placeholder="Κωδικός" aria-describedby="passwordlHelp" name="password" [(ngModel)]="password">
+               <div id="passwordlHelp" class="form-text">Παρακαλώ εισάγετε έναν ασφαλή Κωδικό.</div>
              </div>
+
+             <div class="mb-3">
+              <input type="password" class="form-control" id="confirmPassword" placeholder="Επιβεβαίωση Κωδικού" aria-describedby="confirmPasswordlHelp" name="confirmPassword" [(ngModel)]="confirmPassword">
+              <div id="confirmPasswordlHelp" class="form-text">Επαναλάβατε τον κωδικό.</div>
+            </div>
      
              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                 <button type="button" class="btn btn-primary me-md-2" (click)="signup()">Sign Up</button>
+                 <button type="button" class="btn btn-primary me-md-2" (click)="signup()">Εγγραφή</button>
              </div>
      
-             <a routerLink="/login" class="text-primary">Already Signed Up? Go to Log In.</a>        
+             <a routerLink="/login" class="text-primary">Έχετε ήδη εγγραφεί; Πηγαίνετε στην σελίδα Σύνδεσης.</a>
            </form>
      </div>
      <div class="col-md-4"></div>

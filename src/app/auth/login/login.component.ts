@@ -21,12 +21,12 @@ export class LoginComponent {
   login() {
 
     if(this.email == ''){
-      alert('Please enter email');
+      alert('Παρακαλώ εισάγετε το Email σας.');
       return;
     }
 
     if(this.password == ''){
-      alert('Please enter password');
+      alert('Παρακαλώ εισάγετε τον κωδικό πρόσβασής σας.');
       return;
     }
 

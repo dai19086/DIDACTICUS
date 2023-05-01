@@ -39,7 +39,7 @@ export class AuthService {
     this.fireauth.signInWithEmailAndPassword(email,password).then( () =>{           //logs in with email and password
       this.router.navigate(['/userHome']);                                          //redirects to UserScreen page
     }, err => {
-      alert('Something went wrong! UNSUCCESSFULL LOGIN');
+      alert('Κάτι πήγε στραβά! ΜΗ ΕΠΙΤΥΧΗΣ ΣΥΝΔΕΣΗ!');
       this.router.navigate(['/login']);                               //if an error occurs alert and return to Log In screen
     })
   }
@@ -71,7 +71,7 @@ export class AuthService {
     return this.fireauth.sendPasswordResetEmail(email).then(() => {
       return true;
     }, err => {
-      alert('Something went wrong! Email NOT SENT!');
+      alert('Κάτι πήγε στραβά! Το Email ΔΕΝ ΣΤΑΛΘΗΚΕ!');
       return false;
     });
   }

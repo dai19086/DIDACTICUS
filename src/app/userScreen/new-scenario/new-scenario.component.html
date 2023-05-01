@@ -1,7 +1,7 @@
 <div class="overflow-auto d-flex align-items-center justify-content-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #a7ffcd;" >
     <div class="container py-4 mb-5" style="background-color: #a7ffcd;">
         <div *ngIf="(lastSavedTime!='')" class="d-flex justify-content-center rounded border-success bg-white">
-            <h3 class="text-success">Scenario Saved successfully at {{lastSavedTime}}.</h3>
+            <h3 class="text-success">Το Σενάριό σας αποθηκεύτηκε επιτυχώς στις {{lastSavedTime}}.</h3>
             <img src="assets\gifs\check.gif" alt="CHECK" style="float: right; margin-left: 10px;">
         </div>
         <div *ngIf="(eduProg!='')">
@@ -16,8 +16,8 @@
                     <label for="title" class="form-label">Τίτλος</label>
                     <input type="text" class="form-control" id="title" name="title" ngbTooltip="ΒΕΒΑΙΩΘΕΙΤΕ ΟΤΙ Ο ΤΙΤΛΟΣ ΕΙΝΑΙ ΜΟΝΑΔΙΚΟΣ! Σενάρια με ίδιο τίτλο ΑΝΤΙΚΑΘΙΣΤΟΝΤΑΙ μόλις αποθηκεύονται!" triggers="focus" [(ngModel)]="scenario.title">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[0]" (click)="showTip(0)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[0]" (click)="hideTip(0)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[0]" (click)="showTip(0)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[0]" (click)="hideTip(0)">Κρύψε το TIP</button>
                     </div>
                     
                 </div>
@@ -25,8 +25,8 @@
                     <label for="duration" class="form-label">Εκτιμώμενη Διάρκεια</label>
                     <input type="text" class="form-control" id="duration" name="duration" ngbTooltip="Πόσο θα διαρκέσει το Σενάριο;" triggers="focus" [(ngModel)]="scenario.duration">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[1]" (click)="showTip(1)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[1]" (click)="hideTip(1)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[1]" (click)="showTip(1)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[1]" (click)="hideTip(1)">Κρύψε το TIP</button>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -95,16 +95,16 @@
                     <label for="description" class="form-label">Συνοπτική Περιγραφή</label>
                     <textarea class="form-control" id="description" rows="6" name="description" [(ngModel)]="scenario.description"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[2]" (click)="showTip(2)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[2]" (click)="hideTip(2)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[2]" (click)="showTip(2)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[2]" (click)="hideTip(2)">Κρύψε το TIP</button>
                     </div>
                 </div>
                 <div class="mb-1">
                     <label for="sciApproach" class="form-label">Επιστημολογική Προσέγγιση</label>
                     <textarea class="form-control" id="sciApproach" rows="6" name="sciApproach" [(ngModel)]="scenario.sciApproach"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[3]" (click)="showTip(3)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[3]" (click)="hideTip(3)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[3]" (click)="showTip(3)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[3]" (click)="hideTip(3)">Κρύψε το TIP</button>
                     </div>
                 </div>
             </div>
@@ -115,16 +115,16 @@
                     <label for="connections" class="form-label">Διασυνδέσεις Εννοιών και Δραστηριοτήτων</label>
                     <textarea class="form-control" id="connections" rows="6" name="connections" [(ngModel)]="scenario.connections"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[4]" (click)="showTip(4)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[4]" (click)="hideTip(4)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[4]" (click)="showTip(4)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[4]" (click)="hideTip(4)">Κρύψε το TIP</button>
                     </div>
                 </div>
                 <div class="mb-1">
                     <label for="multiApproach" class="form-label">Πολλαπλές Αναπαραστάσεις και Προσεγγίσεις</label>
                     <textarea class="form-control" id="multiApproach" rows="6" name="multiApproach" [(ngModel)]="scenario.multiApproach"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[5]" (click)="showTip(5)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[5]" (click)="hideTip(5)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[5]" (click)="showTip(5)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[5]" (click)="hideTip(5)">Κρύψε το TIP</button>
                     </div>
                 </div>
             </div>
@@ -135,16 +135,16 @@
                     <label for="difficulties" class="form-label">Πρόβλεψη Δυσκολιών</label>
                     <textarea class="form-control" id="difficulties" rows="6" name="difficulties" [(ngModel)]="scenario.difficulties"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[6]" (click)="showTip(6)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[6]" (click)="hideTip(6)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[6]" (click)="showTip(6)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[6]" (click)="hideTip(6)">Κρύψε το TIP</button>
                     </div>
                 </div>
                 <div class="mb-1">
                     <label for="toolJusti" class="form-label">Αιτιολόγηση Εργαλείων</label>
                     <textarea class="form-control" id="toolJusti" rows="6" name="toolJusti" [(ngModel)]="scenario.toolJusti"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[7]" (click)="showTip(7)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[7]" (click)="hideTip(7)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[7]" (click)="showTip(7)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[7]" (click)="hideTip(7)">Κρύψε το TIP</button>
                     </div>
                 </div>
             </div>
@@ -155,16 +155,16 @@
                     <label for="noise" class="form-label">Διδακτικός Θόρυβος</label>
                     <textarea class="form-control" id="noise" rows="6" name="noise" [(ngModel)]="scenario.noise"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[8]" (click)="showTip(8)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[8]" (click)="hideTip(8)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[8]" (click)="showTip(8)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[8]" (click)="hideTip(8)">Κρύψε το TIP</button>
                     </div>
                 </div>
                 <div class="mb-1">
                     <label for="sources" class="form-label">Εξωτερικές Πηγές</label>
                     <textarea class="form-control" id="sources" rows="6" name="sources" [(ngModel)]="scenario.sources"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[9]" (click)="showTip(9)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[9]" (click)="hideTip(9)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[9]" (click)="showTip(9)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[9]" (click)="hideTip(9)">Κρύψε το TIP</button>
                     </div>
                 </div>
             </div>
@@ -176,16 +176,16 @@
                     <textarea class="form-control" id="method" rows="4" name="method" [(ngModel)]="scenario.method"></textarea>
                     <small>Μπορείτε να βρείτε τις υποκειμενικές θεωρίες μάθησης <a href="https://el.wikipedia.org/wiki/%CE%98%CE%B5%CF%89%CF%81%CE%AF%CE%B5%CF%82_%CE%BC%CE%AC%CE%B8%CE%B7%CF%83%CE%B7%CF%82_(%CE%B5%CE%BA%CF%80%CE%B1%CE%AF%CE%B4%CE%B5%CF%85%CF%83%CE%B7)" target="_blank">εδώ</a>.</small>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[10]" (click)="showTip(10)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[10]" (click)="hideTip(10)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[10]" (click)="showTip(10)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[10]" (click)="hideTip(10)">Κρύψε το TIP</button>
                     </div>
                 </div>
                 <div class="mb-1">
                     <label for="microChanges" class="form-label">Μικρομεταβολές</label>
                     <textarea class="form-control" id="microChanges" rows="6" name="microChanges" [(ngModel)]="scenario.microChanges"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[11]" (click)="showTip(11)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[11]" (click)="hideTip(11)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[11]" (click)="showTip(11)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[11]" (click)="hideTip(11)">Κρύψε το TIP</button>
                     </div>
                 </div>
             </div>
@@ -196,16 +196,16 @@
                     <label for="consensus" class="form-label">Διδακτικό Συμβόλαιο</label>
                     <textarea class="form-control" id="consensus" rows="6" name="consensus" [(ngModel)]="scenario.consensus"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[12]" (click)="showTip(12)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[12]" (click)="hideTip(12)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[12]" (click)="showTip(12)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[12]" (click)="hideTip(12)">Κρύψε το TIP</button>
                     </div>
                 </div>
                 <div class="mb-1">
                     <label for="classOrg" class="form-label">Οργάνωση Τάξης κι Εφικτότητα</label>
                     <textarea class="form-control" id="classOrg" rows="6" name="classOrg" [(ngModel)]="scenario.classOrg"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[13]" (click)="showTip(13)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[13]" (click)="hideTip(13)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[13]" (click)="showTip(13)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[13]" (click)="hideTip(13)">Κρύψε το TIP</button>
                     </div>
                 </div>
                 
@@ -218,8 +218,8 @@
                     <label for="activityEllaboration" class="form-label">Ανάλυση Φύλλων Εργασίας</label>
                     <textarea class="form-control" id="activityEllaboration" rows="10" name="activityEllaboration" [(ngModel)]="scenario.activityEllaboration"></textarea>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start py-1">
-                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[14]" (click)="showTip(14)">Give me a TIP</button>
-                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[14]" (click)="hideTip(14)">Hide TIP</button>
+                        <button type="button" class="btn btn-sm btn-show me-md-2" *ngIf="!showTipButtonList[14]" (click)="showTip(14)">Δείξε μου TIP</button>
+                        <button type="button" class="btn btn-sm btn-hide me-md-2" *ngIf="showTipButtonList[14]" (click)="hideTip(14)">Κρύψε το TIP</button>
                     </div>
                 </div>
             </div>
@@ -243,21 +243,21 @@
             </div>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <button type="button" class="btn btn-info me-md-2" *ngIf="page != 1" (click)="onClickNextPrevious('previous')">Previous</button>
-                <button type="button" class="btn btn-primary me-md-2" *ngIf="page != 10" (click)="onClickNextPrevious('next')">Next</button>
+                <button type="button" class="btn btn-info me-md-2" *ngIf="page != 1" (click)="onClickNextPrevious('previous')">Προηγούμενο</button>
+                <button type="button" class="btn btn-primary me-md-2" *ngIf="page != 10" (click)="onClickNextPrevious('next')">Επόμενο</button>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-word me-md-2" (click)="downloadAsDOCX()">Export DOCX</button>
-                <button type="button" class="btn btn-danger me-md-2" (click)="downloadAsPDF()">Export PDF</button>
+                <button type="button" class="btn btn-word me-md-2" (click)="downloadAsDOCX()">Εξαγωγή DOCX</button>
+                <button type="button" class="btn btn-danger me-md-2" (click)="downloadAsPDF()">Εξαγωγή PDF</button>
                 <button type="button" class="btn btn-primary me-md-2" (click)="saveButton()" [ngStyle]="{'opacity': buttonOpacity}">{{saveBtnText}}</button>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-info me-md-3 " routerLink="/login" [ngStyle]="{'visibility': buttonVisibility}">Log In Here</button>
+                <button type="button" class="btn btn-info me-md-3 " routerLink="/login" [ngStyle]="{'visibility': buttonVisibility}">Συνδεθείτε ΕΔΩ</button>
             </div>
 
             <div *ngIf="(lastSavedTime!='')" class="d-grid gap-2 d-md-flex justify-content-md-start">
                 <div class="ms-4">
-                    <button type="button" class="btn btn-info" routerLink="/savedScenarios">Inspect Saved Scenarios</button>
+                    <button type="button" class="btn btn-info" routerLink="/savedScenarios">Δείτε τα Αποθηκευμένα σας Σενάρια</button>
                 </div>
             </div>
 

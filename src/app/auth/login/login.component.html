@@ -1,31 +1,31 @@
-<div class=" h-100 container-fluid" style="background-color: #a7ffcd;" >
+<div style="background-color: #a7ffcd; height: 100vh; overflow: auto;" >
    <div class="row  justify-content-md-center">
     <div class="col-md-4 mt-5">
-        <h1>Welcome to DIDACTICUS!</h1><br>
-        <h5 class="fs-6" style="opacity: 50%;">You can log in here using your signed email and password.</h5>
+        <h1>Καλώς ορίσατε στο DIDACTICUS!</h1><br>
+        <h5 class="fs-6" style="opacity: 50%;">Μπορείτε να συνδεθείτε εδώ χρησιμοποιώντας το email και τον κωδικό πρόσβασής σας.</h5>
     </div>
    </div>
     <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4 mt-3 mb-5">
         <form>
-            <h3 class="text-primary mb-3">Login</h3>
+            <h3 class="text-primary mb-3">Σύνδεση</h3>
     
             <div class="mb-3">
               <input type="email" class="form-control" id="email" placeholder="Email" aria-describedby="emailHelp" name="email" [(ngModel)]="email">
-              <div id="emailHelp" class="form-text">Please enter the Email that you Signed Up with.</div>
+              <div id="emailHelp" class="form-text">Παρακαλώ εισάγετε το Email με το οποίο είχατε κάνει εγγραφή.</div>
             </div>
     
             <div class="mb-3">
-              <input type="password" class="form-control" id="password" placeholder="Password" name="password" [(ngModel)]="password">
-              <a routerLink="/forgotPass" class="text-danger">Forgot Password?</a>
+              <input type="password" class="form-control" id="password" placeholder="Κωδικός" name="password" [(ngModel)]="password">
+              <a routerLink="/forgotPass" class="text-danger">Ξεχάσατε τον Κωδικό;</a>
             </div>
     
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-primary me-md-2" (click)="login()">Log In</button>
+                <button type="button" class="btn btn-primary me-md-2" (click)="login()">Σύνδεση</button>
             </div>
     
-            <a routerLink="/signup" class="text-primary">Haven't Signed Up yet?</a>
+            <a routerLink="/signup" class="text-primary">Δεν έχετε εγγραφεί ακόμα;</a>
                   
           </form>
     </div>

@@ -78,8 +78,8 @@ export class NewScenarioComponent {
   //used for button styling for logged in or guest users
   buttonOpacity: number = 1;            //opacity for save button
   buttonVisibility: string = 'hidden';  //visibility for log in button
-  saveBtnText: string = 'Save Scenario';  //used for save scenario button
-  savedScenariosLimit: number = 20;  //number of available saved scenarios for each user
+  saveBtnText: string = 'Αποθήκευση Σεναρίου';  //used for save scenario button
+  savedScenariosLimit: number = 3;  //number of available saved scenarios for each user
 
   constructor (private user :UserStateService, private route: ActivatedRoute, private router: Router) { }
 
@@ -163,13 +163,13 @@ export class NewScenarioComponent {
   async saveButton(){
     if(this.userExists){  //check if user exists and should be able to save the scenario
       const saveScenarioText = this.saveBtnText;  //used to maintain the initial button text
-      this.saveBtnText = "Saving....";          //change the button text while waiting to save
+      this.saveBtnText = "Αποθήκευση....";          //change the button text while waiting to save
       //initialize firebase database
       const app = initializeApp(environment.firebase);  //initializing app
       const db = getFirestore(app);                     //getting Firestore Database instance
 
       if(this.scenario.title === ''){           //setting RULES(cases) that will NOT be submitting the scenario
-        alert("YOU CANNOT SAVE A SCENARIO WITHOUT TITLE!")
+        alert("ΔΕΝ ΜΠΟΡΕΙΤΕ ΝΑ ΑΠΟΘΗΚΕΥΣΕΤΕ ΣΕΝΑΡΙΟ ΧΩΡΙΣ ΤΙΤΛΟ!")
       }else{                                    //IF rules are met
         //look at the rest of this user's saved scenarios
         const userID = this.user.currentUser?.uid;  //getting the user's id to use it for searching the database
@@ -191,13 +191,13 @@ export class NewScenarioComponent {
         let proceedSave: boolean = false;   //flag that finally allows the saving process
         
         if (savedScenariosTitles.includes(this.scenario.title)){  //if Scenario with the same title already exists ask if the user means to replace it
-          proceedSave = confirm("A scenario with the title " + this.scenario.title + " already exists. Saving this scenario will replace the existing one. WOULD YOU LIKE TO REPLACE THE SCENARIO: " + this.scenario.title + " ?");
+          proceedSave = confirm("Υπάρχει ήδη σενάριο με τίτλο " + this.scenario.title + ". Αποθήκευση αυτού του Σεναρίου θα ΑΝΤΙΚΑΤΑΣΤΗΣΕΙ το παλαιότερο με τον ίδιο τίτλο. ΘΑ ΘΕΛΑΤΕ ΝΑ ΠΡΟΧΩΡΗΣΕΤΕ ΣΕ ΑΝΤΙΚΑΤΑΣΤΑΣΗ ΤΟΥ " + this.scenario.title + " ;");
         }else{  //this is a new saved scenario
           if (savedScenariosTitles.length<this.savedScenariosLimit){    //checking if the number of scenarios is less than the maximum set(20)
-            proceedSave = confirm("After saving this Scenario you will have " + (savedScenariosTitles.length + 1) + " Saved Scenarios (The limit is " + this.savedScenariosLimit + "). Would you like to proceed saving the Scenario: " + this.scenario.title + " ?");
+            proceedSave = confirm("Με την ΑΠΟΘΗΚΕΥΣΗ αυτού του Σεναρίου θα έχετε " + (savedScenariosTitles.length + 1) + " Αποθηκευμένα Σενάρια (Όριο: " + this.savedScenariosLimit + "). Επιθυμείτε να συνεχίσετε με την ΑΠΟΘΗΚΕΥΣΗ του Σεναρίου: " + this.scenario.title + " ;");
           }else{
             //if the maximum has been reached inform the user
-            alert("You CANNOT save more than " + this.savedScenariosLimit + " Scenarios! To save another scenario you have to delete one of your older Scenarios. Otherwise you can try exporting your Scenario as a .pdf or a .docx file.")
+            alert("ΔΕΝ ΜΠΟΡΕΙΤΕ να αποθηκεύσετε πάνω από " + this.savedScenariosLimit + " Σενάρια! Για να αποθηκεύσετε άλλο Σενάριο θα πρέπει να διαγράψετε κάποιο από τα παλαιότερά σας. Διαφορετικά μπορείτε να εξάγετε το νέο σας Σενάριό σε μορφή αρχείου .docx ή .pdf!")
           }
         }
 
@@ -227,7 +227,7 @@ export class NewScenarioComponent {
       
     } else{
       //notify that you have to be logged in to use this feature
-      alert("Only users can access the Save Scenario feature. Please log in and try again!");
+      alert("Μόνο συνδεδεμένοι χρήστες έχουν δυνατότητα αποθήκευσης Σεναρίων. Παρακαλώ συνδεθείτε και ξαναπροσπαθήστε!");
       this.buttonOpacity = 0.5;         //fade save button
       this.buttonVisibility = 'visible';  //show log in button
     }

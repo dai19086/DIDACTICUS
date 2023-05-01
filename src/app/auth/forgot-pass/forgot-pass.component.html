@@ -1,25 +1,25 @@
-<div class=" h-100 container-fluid" style="background-color: #a7ffcd;" >
+<div style="background-color: #a7ffcd; height: 100vh; overflow: auto;" >
     <div *ngIf="sent" class="d-flex justify-content-center rounded border-success bg-white">
-        <h3 class="text-success">The Verification Email was sent! Visit your email address to change your password.</h3>
+        <h4 class="text-success p-4">Το Email Επαλήθευσης στάλθηκε με επιτυχία! Επισκεφθείτε τη διεύθυνση Email σας για να αλλάξετε κωδικό πρόσβασής.</h4>
         <img src="assets\gifs\check.gif" alt="CHECK" style="float: right; margin-left: 10px;">
     </div>
     <div class="row">
      <div class="col-md-4"></div>
      <div class="col-md-4 mt-3 mb-5">
          <form>
-             <h3 class="text-primary mb-3">Forgot Password</h3>
+             <h3 class="text-primary mb-3">Ξέχασα τον Κωδικό</h3>
      
              <div class="mb-3">
                <input type="email" class="form-control" id="email" placeholder="Email" aria-describedby="emailHelp" name="email" [(ngModel)]="email">
-               <div id="emailHelp" class="form-text">Please enter the Email that you Signed Up with.</div>
-               <small>There you will receive an email with a link to reset your password.</small>
+               <div id="emailHelp" class="form-text">Παρακαλώ εισάγετε το Εmail με το οποίο έχετε κάνει εγγραφή.</div>
+               <small>Εκεί θα λάβετε ένα email με link για επαναφορά κωδικού πρόσβασής.</small>
              </div>
      
              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                 <button type="button" class="btn btn-primary me-md-2" (click)="forgotPass()">Send Password Reset Email</button>
+                 <button type="button" class="btn btn-primary me-md-2" (click)="forgotPass()">Αποστολή Email Επαναφοράς Κωδικού Πρόσβασης</button>
              </div>
      
-             <a routerLink="/signup" class="text-primary">Haven't Signed Up yet?</a>      
+             <a routerLink="/signup" class="text-primary">Δεν έχετε εγγραφεί ακόμα;</a>      
            </form>
      </div>
      <div class="col-md-4"></div>
