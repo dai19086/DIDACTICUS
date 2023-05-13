@@ -26,6 +26,11 @@ export class HeaderComponent {
     }
   }
 
+  rateRedirect(){
+    const formLink = "https://docs.google.com/forms/d/e/1FAIpQLSf2uMTIUCA9omqSseYHFS9uaUn5l72Kd3rLjpgK_yyyPaurDg/viewform?usp=sf_link";
+    window.open(formLink,'_blank')
+  }
+
   logOut(){                   //logs out the user if he is logged in and redirects him to the non-(Logged in) page
     if(!(this.user.currentUser == null)){
       const confirmation = confirm("Είστε σίγουρος/η ότι θέλετε να ΑΠΟΣΥΝΔΕΘΕΙΤΕ;");////get confirmation for user log out
