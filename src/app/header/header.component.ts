@@ -36,7 +36,7 @@ export class HeaderComponent {
       const confirmation = confirm("Είστε σίγουρος/η ότι θέλετε να ΑΠΟΣΥΝΔΕΘΕΙΤΕ;");////get confirmation for user log out
       if (confirmation) {
         this.auth.logOut();
-        alert('Καλή συνέχια ' + this.user.currentUser.displayName + '!');
+        alert('Καλή συνέχεια ' + this.user.currentUser.displayName + '!');
       }
     }else{
       alert('ΣΦΑΛΜΑ.Δεν υπάρχει συνδεδεμένος χρήστης!')

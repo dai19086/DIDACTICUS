@@ -49,7 +49,7 @@ export class SavedScenariosComponent implements OnInit{
                                                   sData['skillGoalsCheck'],sData['skillGoals'],sData['behaviourGoalsCheck'],
                                                   sData['behaviourGoals'],sData['description'],sData['sciApproach'],
                                                   sData['connections'],sData['multiApproach'],sData['toolJusti'],
-                                                  sData['sources'],sData['method'],sData['microchanges'],sData['activityEllaboration'],
+                                                  sData['sources'],sData['method'],sData['microChanges'],sData['activityEllaboration'],
                                                   sData['classOrg'],sData['consensus'],sData['difficulties'],
                                                   sData['noise'],sData['evaluation'],sData['reflection']);      //create the Scenario
               this.userSavedScenarios.push(loadedScenario);     //store Scenario locally before moving up to the next one
