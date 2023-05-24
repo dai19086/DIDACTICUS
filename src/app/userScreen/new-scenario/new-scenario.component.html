@@ -237,9 +237,13 @@
                 </div>
             </div>
 
-            <div class="text-black card p-2 py-1 rounded mb-1" style="background-color: rgb(233, 229, 229);" *ngIf="tip != ''">
+            <div class="text-black card p-2 py-1 rounded mb-1" style="background-color: rgb(233, 229, 229);" *ngIf="tip.length > 1">
                 <label><i>TIP</i></label>
-                <small>{{tip}}</small>
+                <small>
+                    <div *ngFor="let tipLine of tip">
+                        <b>-> </b>{{tipLine}}<br>
+                    </div>
+                </small>
             </div>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
