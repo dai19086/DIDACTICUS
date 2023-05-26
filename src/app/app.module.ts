@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPassComponent } from './auth/forgot-pass/forgot-pass.component';
+import { SharedScenariosComponent } from './userScreen/shared-scenarios/shared-scenarios.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ForgotPassComponent } from './auth/forgot-pass/forgot-pass.component';
     NewScenarioComponent,
     SavedScenariosComponent,
     UserHomeComponent,
-    ForgotPassComponent
+    ForgotPassComponent,
+    SharedScenariosComponent
   ],
   imports: [
     BrowserModule,

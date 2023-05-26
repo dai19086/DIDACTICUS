@@ -3,8 +3,8 @@ import { NavigationExtras, Router } from '@angular/router';
 import { Scenario } from 'src/app/scenario.model';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
-import { collection, deleteDoc, doc, getDocs, getFirestore, query, where } from 'firebase/firestore';
-import { UserStateService } from 'src/app/shared/auth.service';
+import { collection, deleteDoc, doc, getDocs, getFirestore, query, setDoc, where } from 'firebase/firestore';
+import { AuthService, UserStateService } from 'src/app/shared/auth.service';
 import { Firestore } from '@angular/fire/firestore';
 
 
@@ -21,12 +21,19 @@ export class SavedScenariosComponent implements OnInit{
   loading: boolean = true;    //used to control the display of the loading indicator
 
   db!: Firestore;       //this is the instance of the Firestore database initialized in the ngOnInit method
-  
 
+  shareScenarioInitButton: boolean[] = [];        //boolean array used for display of share buttons
+  userToShare: string = '';                   //used to save the desired user email
+  userToShareDoesNotExists: boolean = false;  //used to diplay error message in html
+  sharedSuccesfully: boolean = false;         //used to display success message
 
-  constructor(private router: Router, private user :UserStateService) {}
+  constructor(private router: Router, private user :UserStateService, private auth : AuthService) {}
 
   ngOnInit(): void {
+    this.userToShare = '';                  //initializing userToShare
+    this.userToShareDoesNotExists = false;  //initializing userToShareExists
+    this.sharedSuccesfully =false;            //initializing sharedSuccesfully
+
     this.loading = true;//making sure loading indicator is on while loading
     const app = initializeApp(environment.firebase);  //initializing app
     this.db = getFirestore(app);                     //getting Firestore Database instance
@@ -54,6 +61,9 @@ export class SavedScenariosComponent implements OnInit{
                                                   sData['noise'],sData['evaluation'],sData['reflection']);      //create the Scenario
               this.userSavedScenarios.push(loadedScenario);     //store Scenario locally before moving up to the next one
               this.savedScenariosTitles.push(sData['title']);   //add scenario title in an array to display
+              
+              //add the share button to show
+              this.shareScenarioInitButton.push(false);
               console.log(doc.id, ' => ', sData['title']);
             });
             //switching off loading indicator and showing data
@@ -71,7 +81,7 @@ export class SavedScenariosComponent implements OnInit{
 
   //onClick for delete scenario button
   async delete(deleteScenario: number){
-    const confirmation = confirm("Είστε σίγουρος/η ότι θέλετε να ΔΙΑΓΡΑΨΕΤΕ αυτό το Σενάριο; Δεν θα μπορείτε να αναιρέσετε αυτήν την ενέργεια!");//get confirmation for deleting the item
+    const confirmation = confirm("Είστε σίγουρος/η ότι θέλετε να ΔΙΑΓΡΑΨΕΤΕ αυτό το Σενάριο; Διαγράφοντας αυτό το Σενάριο διαγράφετε και οποιονδήποτε δοιαμοιρασμό αυτού έχετε πραγματοποιήσει! Δεν θα μπορείτε να αναιρέσετε αυτήν την ενέργεια!");//get confirmation for deleting the item
 
     if (confirmation) {
       const userID = this.user.currentUser?.uid;  //getting the user's id to create the deleteDocumentID
@@ -79,12 +89,68 @@ export class SavedScenariosComponent implements OnInit{
       await deleteDoc(doc(this.db,'savedScenarios',deleteDocumentID));  //delete document based on documentID
       //this ID is specificly saved that way when the scenario is saved and is unique
 
+      //find shared versions of this scenario
+      const qUserScenarios = query(collection(this.db, 'sharedScenarios'), where('shareScenarioID', '==', deleteDocumentID));
+      getDocs(qUserScenarios)
+          .then((querySnap) => {
+            //delete documents that refer to the deleted scenario
+            querySnap.forEach(async (documentToDelete) => {
+              const shareToDelete = documentToDelete.id;
+              await deleteDoc(doc(this.db,'sharedScenarios',shareToDelete));
+            });
+
+          });
+
       //reload page
       const currentRoute = this.router.url;
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
         this.router.navigate([currentRoute]);
       });
     }
+  }
+
+  //onClick for the initial share button
+  openShareForm(scenarioNumber: number){
+    //reveart the rest of the share buttons in their initial state
+    for (let i = 0; i < this.shareScenarioInitButton.length; i++) {
+      this.shareScenarioInitButton[i]=false;
+    }
+    //make the clicked button invisible and open the share form
+    this.shareScenarioInitButton[scenarioNumber] = true;
+    //reinitiallizing items
+    this.userToShare = '';
+    this.userToShareDoesNotExists = false;
+    this.sharedSuccesfully =false 
+  }
+
+  //onClick for finalization of scenario sharing
+  shareScenario(scenarioNumber: number){
+    this.auth.checkEmailAvailability(this.userToShare).then(async isAvailable => {  //checking if an account with this email exists
+      this.userToShareDoesNotExists = isAvailable;  //updating value to show warning if the user doesn't exist (because the email is still available)
+      if(!isAvailable){ //if the email matches that of a user's email
+        if(this.user.userLoggedIn){ //check again if someone's logged in
+          const emailRegex = /\S+@\S+\.\S+/;
+          if (!emailRegex.test(this.userToShare)){
+            alert ('Παρακαλώ εισάγετε μια έγκυρη διεύθυνση email!');
+            return;
+          }
+          //share scenario
+          //create the id with which the share link will be stored
+          const shareLinkID = this.user.currentUser?.uid + '_' + this.userToShare + '_' + this.savedScenariosTitles[scenarioNumber];
+          //creating the link that the user will use to get the shared scenario and IDs for the sender and the receiver (email is unique for each user) that will be saved to firestore
+          const shareLink = {
+            userSendID: this.user.currentUser?.uid,           //sender's ID
+            userSendName: this.user.currentUser?.displayName, //sender's name for display
+            userReceiveEmail: this.userToShare,               //receiver's ID
+            shareScenarioID: this.user.currentUser?.uid + '_' + this.savedScenariosTitles[scenarioNumber]    //senario ID to load
+          }
+          //create and save document to firestore
+          await setDoc(doc(this.db,'sharedScenarios',shareLinkID),shareLink);
+          //display confirmation that the scenario was shared succesfully
+          this.sharedSuccesfully = true;
+        }
+      }
+    });
   }
 
   //onClick method for PDF button

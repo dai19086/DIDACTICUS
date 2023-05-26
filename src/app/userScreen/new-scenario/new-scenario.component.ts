@@ -138,7 +138,7 @@ export class NewScenarioComponent {
   buttonOpacity: number = 1;            //opacity for save button
   buttonVisibility: string = 'hidden';  //visibility for log in button
   saveBtnText: string = 'Αποθήκευση Σεναρίου';  //used for save scenario button
-  savedScenariosLimit: number = 3;  //number of available saved scenarios for each user
+  savedScenariosLimit: number = 5;  //number of available saved scenarios for each user
 
   constructor (private user :UserStateService, private route: ActivatedRoute, private router: Router) { }
 

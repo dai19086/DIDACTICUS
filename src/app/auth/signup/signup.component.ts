@@ -51,6 +51,14 @@ export class SignupComponent {
       this.confirmPassword = '';
       return;
     }
+
+    this.auth.checkEmailAvailability(this.email).then(isAvailable => {
+      if(!isAvailable){
+        alert('Αυτή η διεύθυνση email χρησιμοποιείται ήδη! Δοκιμάστε να εισάγετε μια νέα ή αν έχετε λογαριασμό δοκιμάστε να ΣΥΝΔΕΘΕΙΤΕ.');
+        this.email = '';
+        return;
+      }
+    })
     
     this.auth.signUp(this.username,this.email,this.password);
 

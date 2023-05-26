@@ -6,6 +6,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { NewScenarioComponent } from './userScreen/new-scenario/new-scenario.component';
 import { SavedScenariosComponent } from './userScreen/saved-scenarios/saved-scenarios.component';
+import { SharedScenariosComponent } from './userScreen/shared-scenarios/shared-scenarios.component';
 import { UserHomeComponent } from './userScreen/user-home/user-home.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'forgotPass', component: ForgotPassComponent},
   {path:'newScenario', component: NewScenarioComponent},
   {path:'savedScenarios', component: SavedScenariosComponent},
+  {path:'sharedScenarios', component: SharedScenariosComponent},
   {path:'userHome', component: UserHomeComponent}
 ];
 

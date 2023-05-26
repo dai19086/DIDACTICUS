@@ -75,5 +75,16 @@ export class AuthService {
       return false;
     });
   }
+
+  //check email availability method to check if a user exists with a certain email
+  async checkEmailAvailability(email: string): Promise<boolean> {
+    try {
+      const result = await this.fireauth.fetchSignInMethodsForEmail(email);
+      return result.length === 0; // Email is available if no sign-in methods are associated with it
+    } catch (error) {
+      console.error('Error checking email availability:', error);
+      return false; // Return false if there's an error
+    }
+  }
   
 }
