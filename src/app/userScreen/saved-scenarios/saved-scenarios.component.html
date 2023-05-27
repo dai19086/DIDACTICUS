@@ -1,50 +1,72 @@
 <div class="h-100 d-flex align-items-center justify-content-center p-5" style="overflow: auto; background-color: #a7ffcd;" >
-  <div class="rounded p-4" style="background-color: #008037;">
-    <div *ngIf="(loading)" class="d-flex justify-content-center rounded border-success bg-white">
-      <h3 class="p-2">Φόρτωση Σεναρίων...Παρακαλώ περιμένετε!</h3>
-      <img src="assets\gifs\loading.gif" alt="LOADING..." style="float: right; margin-left: 10px;">
-  </div>
-  <div *ngIf="(!loading)">
-    <div class="card row-1 mb-1">
-      <div class="card-body">
-        <span *ngIf="(userSavedScenarios.length != 0)">Τίτλος</span>
-        <h3 *ngIf="(userSavedScenarios.length == 0)">Δεν έχετε αποθηκεύσει κανένα Σενάριο ακόμα! Δοκιμάστε να δημιουργήσετε ένα Νέο!</h3>
+  <div class="container">
+    <div class="row mt-3" style="text-align: center;">
+      <h2>
+        Εδώ θα βρείτε τα Σενάρια τα οποία έχετε αποθηκεύσει!
+      </h2>
       </div>
+      <div class="row mb-5">
+      <h5>
+        -> Για να ανοίξετε και να επεξεργαστείτε τα Σενάριά σας πατήστε στο "Επεξεργασία".
+      </h5>
+      <h5>
+        -> Για να αποθηκεύσετε σε μορφή PDF τα Σενάριά σας πατήστε στο "Σε PDF".
+      </h5>
+      <h5>
+        -> Για να Διαμοιραστείτε τα Σενάριά σας με κάποιον άλλο χρήστη του Didacticus πατήστε στο "Διαμοιρασμός".
+      </h5>
+      <h5>
+        -> Σε περίπτωση που επιθυμείτε να διαγράψετε κάποιο από τα Σενάριά σας πατήστε στο "Διαγραφή".
+      </h5>
     </div>
-
-    <div class="row-1 mb-1" *ngFor="let ScenarioTitle of savedScenariosTitles; let i = index">
-      <div class="card">
-        <div class="card-body d-flex justify-content-between align-items-center p-1">
-          <span class="me-4">{{i+1}}. {{ScenarioTitle}}</span>
-          <div class="ms-4">
-            <button *ngIf="!shareScenarioInitButton[i]" type="button" class="btn btn-outline-primary btn-sm me-2" (click)="openShareForm(i)">Διαμοιρασμός</button>
-            <button type="button" class="btn btn-outline-danger btn-sm me-2" (click)="delete(i)">Διαγραφή</button>
-            <button type="button" class="btn btn-danger me-2" (click)="getPDF(i)">Σε PDF</button>
-            <button type="button" class="btn btn-primary" (click)="openScenario(i)">Επεξεργασία</button>
+    <div class="row rounded p-4" style="background-color: #008037;">
+      <div *ngIf="(loading)" class="d-flex justify-content-center rounded border-success bg-white">
+        <h3 class="p-2">Φόρτωση Σεναρίων...Παρακαλώ περιμένετε!</h3>
+        <img src="assets\gifs\loading.gif" alt="LOADING..." style="float: right; margin-left: 10px;">
+      </div>
+      <div *ngIf="(!loading)">
+        <div class="card row-1 mb-1">
+          <div class="card-body" style="background-color: #a7ffcd;">
+            <span *ngIf="(userSavedScenarios.length != 0)">Τίτλος</span>
+            <h3 *ngIf="(userSavedScenarios.length == 0)">Δεν έχετε αποθηκεύσει κανένα Σενάριο ακόμα! Δοκιμάστε να δημιουργήσετε ένα Νέο!</h3>
           </div>
         </div>
-        <form *ngIf="shareScenarioInitButton[i]" class="rounded p-4">
-          <div class="mb-1">
-            <div *ngIf="(!sharedSuccesfully)">
-              <label for="userToShare" class="form-label">Παρακαλώ πληκτρολογήστε το Email του χρήστη με τον οποίο θα θέλατε να μοιραστείτε το Σενάριο ({{ScenarioTitle}}).</label>
-              <input type="text" class="form-control" id="userToShare" name="userToShare" placeholder="e.g. johndoe@gmail.com" [(ngModel)]="userToShare">
-              <span class="text-danger" *ngIf="userToShareDoesNotExists">Το email χρήστη που εισήγατε δεν αντιστοιχεί σε χρήστη του DIDACTICUS. Παρακαλώ βεβαιωθείτε ότι γράψατε το σωστό email και ξαναπροσπαθήστε!</span>
-              <div class="d-grid gap-2 d-md-flex justify-content-md-end py-1">
-                <button *ngIf=" (userToShare!='') " type="button" class="btn btn-primary" (click)="shareScenario(i)">Διαμοιρασμός Σεναρίου</button>
+  
+        <div class="row-1 mb-1" *ngFor="let ScenarioTitle of savedScenariosTitles; let i = index">
+          <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center p-1">
+              <span class="me-4">{{i+1}}. {{ScenarioTitle}}</span>
+              <div class="ms-4">
+                <button *ngIf="!shareScenarioInitButton[i]" type="button" class="btn btn-outline-primary btn-sm me-2" (click)="openShareForm(i)">Διαμοιρασμός</button>
+                <button type="button" class="btn btn-outline-danger btn-sm me-2" (click)="delete(i)">Διαγραφή</button>
+                <button type="button" class="btn btn-danger me-2" (click)="getPDF(i)">Σε PDF</button>
+                <button type="button" class="btn btn-primary" (click)="openScenario(i)">Επεξεργασία</button>
               </div>
             </div>
-            <div *ngIf="(sharedSuccesfully)" class="d-flex justify-content-center align-items-center rounded border-success bg-white">
-              <small class="text-success">Το Σενάριό σας διαμοιράστηκε με επιτυχία.</small>
-              <img src="assets\gifs\check.gif" alt="CHECK" style="float: right; margin-left: 10px;">
-            </div>
+            <form *ngIf="shareScenarioInitButton[i]" class="rounded p-4">
+              <div class="mb-1">
+                <div *ngIf="(!sharedSuccesfully)">
+                  <label for="userToShare" class="form-label">Παρακαλώ πληκτρολογήστε το Email του χρήστη με τον οποίο θα θέλατε να μοιραστείτε το Σενάριο ({{ScenarioTitle}}).</label>
+                  <input type="text" class="form-control" id="userToShare" name="userToShare" placeholder="e.g. johndoe@gmail.com" [(ngModel)]="userToShare">
+                  <span class="text-danger" *ngIf="userToShareDoesNotExists">Το email χρήστη που εισήγατε δεν αντιστοιχεί σε χρήστη του DIDACTICUS. Παρακαλώ βεβαιωθείτε ότι γράψατε το σωστό email και ξαναπροσπαθήστε!</span>
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-end py-1">
+                    <button *ngIf=" (userToShare!='') " type="button" class="btn btn-primary" (click)="shareScenario(i)">Διαμοιρασμός Σεναρίου</button>
+                  </div>
+                </div>
+                <div *ngIf="(sharedSuccesfully)" class="d-flex justify-content-center align-items-center rounded border-success bg-white">
+                  <small class="text-success">Το Σενάριό σας διαμοιράστηκε με επιτυχία.</small>
+                  <img src="assets\gifs\check.gif" alt="CHECK" style="float: right; margin-left: 10px;">
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
+  
+        <br>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="button" class="btn btn-info me-md-2" routerLink="/newScenario">Δημιουργία Νέου Σεναρίου</button>
+        </div>
       </div>
-    </div>
-
-    <br>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-info me-md-2" routerLink="/newScenario">Δημιουργία Νέου Σεναρίου</button>
     </div>
   </div>
 </div>

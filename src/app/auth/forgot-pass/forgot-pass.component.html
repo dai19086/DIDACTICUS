@@ -1,9 +1,14 @@
 <div style="background-color: #a7ffcd; height: 100vh; overflow: auto;" >
     <div *ngIf="sent" class="d-flex justify-content-center rounded border-success bg-white">
-        <h4 class="text-success p-4">Το Email Επαλήθευσης στάλθηκε με επιτυχία! Επισκεφθείτε τη διεύθυνση Email σας για να αλλάξετε κωδικό πρόσβασής.</h4>
-        <img src="assets\gifs\check.gif" alt="CHECK" style="float: right; margin-left: 10px;">
+        <div class="row mt-5 mb-5">
+            <h4 class="col-md-10 text-success p-4">Το Email Επαλήθευσης στάλθηκε με επιτυχία! Επισκεφθείτε τη διεύθυνση Email σας για να αλλάξετε κωδικό πρόσβασής.</h4>
+            <img class="col-md-1" src="assets\gifs\check.gif" alt="CHECK" style="float: right; margin-left: 10px;">
+        </div>
     </div>
-    <div class="row">
+    <div *ngIf="sent" class="d-flex justify-content-center rounded border-success mt-5">
+        <h5>Ανακατευθύνεστε στην σελίδα Σύνδεσης...</h5>
+    </div>
+    <div *ngIf="!sent" class="row">
      <div class="col-md-4"></div>
      <div class="col-md-4 mt-3 mb-5">
          <form>

@@ -1,29 +1,43 @@
-<!--<div class="h-100 d-flex align-items-center justify-content-center p-5" style="overflow: auto; background-color: #a7ffcd;" >
-  <div class="rounded p-4" style="background-color: #008037;">
-    <div *ngIf="(loading)" class="d-flex justify-content-center rounded border-success bg-white">
-      <h3 class="p-2">Φόρτωση Σεναρίων...Παρακαλώ περιμένετε!</h3>
-      <img src="assets\gifs\loading.gif" alt="LOADING..." style="float: right; margin-left: 10px;">
+<div class="h-100 d-flex align-items-center justify-content-center p-5" style="overflow: auto; background-color: #a7ffcd;" >
+  <div class="container">
+    <div class="row mt-3" style="text-align: center;">
+      <h2>
+        Εδώ θα βρείτε τα Σενάρια που άλλοι χρήστες έχουν διαμοιραστεί μαζί σας!
+      </h2>
     </div>
-    <div *ngIf="(!loading)">
+    <div class="row mb-5">
+      <h5>
+        -> Για να δείτε ή και να αποθηκεύσετε στην συνέχεια κάποιο από τα διαμοιρασμένα Σενάρια πατήστε στο "Δείτε το Σενάριο".
+      </h5>
+      <h5>
+        -> Σε περίπτωση που δεν επιθυμείτε πλέον κάποιο μοιρασμένο Σενάριο μπορείτε να το διαγράψετε πατώντας στο "Διαγραφή Διαμοιρασμού".
+      </h5>
+    </div>
+    <div class="row rounded p-4" style="background-color: #008037;">
+      <div *ngIf="(loading)" class="d-flex justify-content-center rounded border-success bg-white">
+        <h3 class="p-2">Φόρτωση Σεναρίων...Παρακαλώ περιμένετε!</h3>
+        <img src="assets\gifs\loading.gif" alt="LOADING..." style="float: right; margin-left: 10px;">
+      </div>
+      <div *ngIf="(!loading)">
         <div class="card row-1 mb-1">
-          <div class="card-body">
+          <div class="card-body" style="background-color: #a7ffcd;">
             <span *ngIf="(sharedScenarios.length != 0)">Τίτλος</span>
-            <h3 *ngIf="(sharedScenarios.length == 0)">Δεν έχετε κανένα διαμοιρασμένο σενάριο!</h3>
+            <h3 *ngIf="(sharedScenarios.length == 0)">Ακόμα δεν έχετε κανένα διαμοιρασμένο σενάριο!</h3>
           </div>
         </div>
     
         <div class="row-1 mb-1" *ngFor="let ScenarioTitle of sharedScenariosTitles; let i = index">
           <div class="card">
             <div class="card-body d-flex justify-content-between align-items-center p-1">
-              <span class="me-4">{{i+1}}. {{ScenarioTitle}} (username)</span>
+              <span class="me-4">{{i+1}}. {{ScenarioTitle}} (του χρήστη "{{shareFromUserName[i]}}")</span>
               <div class="ms-4">
-                <button type="button" class="btn btn-outline-danger btn-sm me-2" (click)="deleteShared(i)">Διαγραφή</button>
-                <button type="button" class="btn btn-success me-2" (click)="getACopy(i)">Αποθηκεύστε ένα Αντίγραφο</button>
-                <button type="button" class="btn btn-primary" (click)="(i)">Επεξεργαστείτε το Σενάριο του ()</button>
+                <button type="button" class="btn btn-outline-danger btn-sm me-2" (click)="deleteShared(i)">Διαγραφή Διαμοιρασμού</button>
+                <button type="button" class="btn btn-success" (click)="openScenario(i)">Δείτε το Σενάριο</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
-</div>-->
+</div>

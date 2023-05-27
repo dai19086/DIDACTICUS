@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class ForgotPassComponent {
   email : string = '';
   sent : boolean = false;
 
-  constructor (private auth : AuthService) { }
+  constructor (private auth : AuthService, private router : Router) { }
 
   ngOnInit(): void {
     this.email = '';
@@ -19,9 +20,27 @@ export class ForgotPassComponent {
   }
 
   async forgotPass(){
-    const awaitSent = await this.auth.forgotPass(this.email);
-    this.sent = awaitSent;
-    this.email = '';
+    this.auth.checkEmailAvailability(this.email).then(async isAvailable => {  //checking if an account with this email exists
+
+      const emailFound = !isAvailable;
+
+      if(isAvailable){
+        alert("Δεν υπάρχει λογαριασμός με αυτό το email. Παρακαλώ δώστε έγκυρο email!");
+        return;
+      }
+      
+      //if a user with this email exists
+      if(emailFound){
+        const awaitSent = await this.auth.forgotPass(this.email);   //send the mail
+        this.sent = awaitSent;  //get the confirmation to show the confirmation text
+        this.email = '';        //empty the input field
+        if(this.sent){  //if everything succeeded
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 3000);       //wait for 3 seconds and the redirect to login page
+        }
+      }
+    });
   }
 
 }

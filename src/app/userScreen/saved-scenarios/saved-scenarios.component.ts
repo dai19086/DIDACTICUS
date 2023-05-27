@@ -129,9 +129,13 @@ export class SavedScenariosComponent implements OnInit{
       this.userToShareDoesNotExists = isAvailable;  //updating value to show warning if the user doesn't exist (because the email is still available)
       if(!isAvailable){ //if the email matches that of a user's email
         if(this.user.userLoggedIn){ //check again if someone's logged in
-          const emailRegex = /\S+@\S+\.\S+/;
-          if (!emailRegex.test(this.userToShare)){
+          const emailRegex = /\S+@\S+\.\S+/;  //set rule to recognize a valid email address
+          if (!emailRegex.test(this.userToShare)){  //check if entered email address is valid
             alert ('Παρακαλώ εισάγετε μια έγκυρη διεύθυνση email!');
+            return;
+          }
+          if(this.userToShare === this.user.currentUser?.email){   //deter user from sharing scenario with himself
+            alert ('Δυστυχώς δεν είναι δυνατό να διαμοιραστείτε σενάρια με τον εαυτό σας! Παρακαλώ ξαναπροσπαθήστε με την διεύθυνση email άλλου χρήστη.');
             return;
           }
           //share scenario
@@ -142,6 +146,7 @@ export class SavedScenariosComponent implements OnInit{
             userSendID: this.user.currentUser?.uid,           //sender's ID
             userSendName: this.user.currentUser?.displayName, //sender's name for display
             userReceiveEmail: this.userToShare,               //receiver's ID
+            sharedScenarioTitle: this.savedScenariosTitles[scenarioNumber], //scenario title for display
             shareScenarioID: this.user.currentUser?.uid + '_' + this.savedScenariosTitles[scenarioNumber]    //senario ID to load
           }
           //create and save document to firestore
