@@ -237,12 +237,16 @@ export class Scenario {
     pdf.addFont("Amiri-Regular.ttf", "Amiri", "normal");
 		pdf.setFont("Amiri");
     
+    let y = 15;
     //starting the file with the title
     pdf.setFontSize(24);
-    pdf.text("DIDACTICUS: " + this.title,20, 15,);
+    const headerText = "DIDACTICUS: " + this.title;
+    const headerLines = pdf.splitTextToSize(headerText,180); //split the header into lines to fit the file
+    pdf.text(headerLines,20, y,);
+    y += headerLines.length * 10 +5; //moving down as many lines as we wrote and one more for spacing
 
     //constructing the data from tableData in lines of the file
-    let y = 25;
+    
     for (const [title, content] of tableData) {
       const lines = pdf.splitTextToSize(`${content}`, 180); //split the content into lines to fit the file
   
