@@ -79,6 +79,33 @@ export class Scenario {
     this.reflection = reflection;
   }
 
+  //declares that some fields of the scenario are filled
+  isNotEmpty(): boolean {
+    return ((this.title != "") ||
+      (this.duration != "") ||
+      (this.eduProg != "") ||
+      (this.BloomTaxonomy != "") ||
+      (this.knowledgeGoals != "") ||
+      (this.skillGoals != "") ||
+      (this.behaviourGoals != "") ||
+      (this.description != "") ||
+      (this.sciApproach != "") ||
+      (this.connections != "") ||
+      (this.multiApproach != "") ||
+      (this.toolJusti != "") ||
+      (this.sources != "") ||
+      (this.method != "") ||
+      (this.microChanges != "") ||
+      (this.activityEllaboration != "") ||
+      (this.classOrg != "") ||
+      (this.consensus != "") ||
+      (this.difficulties != "") ||
+      (this.noise != "") ||
+      (this.evaluation != "") ||
+      (this.reflection != "")
+      );
+  }
+
   //serialization method from this scenario to JSON
   serialize(): string {
     return JSON.stringify({ title: this.title, duration: this.duration, eduProg: this.eduProg,

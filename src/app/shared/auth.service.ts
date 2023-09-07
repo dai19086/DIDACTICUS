@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { User } from '../user.model';
 
 @Injectable({  providedIn: 'root'})
@@ -35,21 +35,46 @@ export class AuthService {
   constructor(private fireauth : AngularFireAuth, private router : Router) { }
 
   //login method
-  logIn(email : string, password : string){
+  logIn(email : string, password : string, logInParams : string){
     this.fireauth.signInWithEmailAndPassword(email,password).then( () =>{           //logs in with email and password
-      this.router.navigate(['/userHome']);                                          //redirects to UserScreen page
+      if (logInParams==''){
+        this.router.navigate(['/userHome']);      //redirects to UserScreen page
+      }else{
+        const params: NavigationExtras = {    //add it to the navigation query parameters
+          queryParams: {scenario: logInParams}
+        }
+        this.router.navigate(['/newScenario'],params);      //redirects to New Scenario page retaining the scenario the  user had started
+      }
+      
+      
     }, err => {
-      alert('Κάτι πήγε στραβά! ΜΗ ΕΠΙΤΥΧΗΣ ΣΥΝΔΕΣΗ!');
-      this.router.navigate(['/login']);                               //if an error occurs alert and return to Log In screen
+      alert('Κάτι πήγε στραβά! ΜΗ ΕΠΙΤΥΧΗΣ ΣΥΝΔΕΣΗ!');  //if an error occurs alert and return to Log In screen
+      if (logInParams==''){
+        this.router.navigate(['/login']);      //just reloads page
+      }else{
+        const params: NavigationExtras = {    //add it to the navigation query parameters
+          queryParams: {scenario: logInParams}
+        }
+        this.router.navigate(['/login'],params);      //reload page retaining the navigation parameters
+      }
     })
   }
 
   //sign up method
-  async signUp(username : string, email : string, password : string){
+  async signUp(username : string, email : string, password : string, ScenarioParams : string){
     try {
       const { user } = await this.fireauth.createUserWithEmailAndPassword(email, password);   //creates a user with the given email and password
       await user?.updateProfile({ displayName: username });                                   //add the user's username
-      await this.router.navigate(['/login']);                                                 //once it's done redirect to Log In screen
+      if (ScenarioParams==''){
+        //once Signed Up
+        await this.router.navigate(['/userHome']);         //simply redirects to user Home page
+      }else{
+        const params: NavigationExtras = {    //add it to the navigation query parameters
+          queryParams: {scenario: ScenarioParams}
+        }
+        //once Signed Up
+        await this.router.navigate(['/newScenario'],params);  //redirects to new Scenario page  rataining the scenario the  user had started
+      }
       return true;
     } catch (error) {
       console.error('Error occurred during sign up:', error);             //catching errors that might occur

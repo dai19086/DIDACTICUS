@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
@@ -14,10 +15,24 @@ export class SignupComponent {
   confirmPassword : string = '';
 
 
-  constructor (private auth : AuthService) { }
+  constructor (private auth : AuthService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
 
+  }
+
+  //onClick for opening Log In page
+  redirectToLogIn(){
+    const params = this.route.snapshot.queryParamMap;
+
+    if (params.has('scenario')){
+      const newParams: NavigationExtras = {    //add it to the new navigation query parameters
+        queryParams: {scenario: params.get('scenario') as string}
+      }
+      this.router.navigate(['/login'], newParams); //redirect with params
+    }else{
+      this.router.navigate(['/login']); //redirect without params
+    }
   }
 
   signup() {
@@ -60,7 +75,16 @@ export class SignupComponent {
       }
     })
     
-    this.auth.signUp(this.username,this.email,this.password);
+    //loading navigation parameters if any
+    const params = this.route.snapshot.queryParamMap;
+    let ScenarioParams;
+    if (params.has('scenario')){
+      ScenarioParams = params.get('scenario') as string;
+    }else{
+      ScenarioParams = '';
+    }
+
+    this.auth.signUp(this.username,this.email,this.password,ScenarioParams);
 
     this.username='';
     this.email='';

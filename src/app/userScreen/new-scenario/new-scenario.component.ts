@@ -206,6 +206,23 @@ export class NewScenarioComponent {
     this.tip = [];
   }
 
+  //onClick for Log In button by retaining the scenario
+  redirectToLogIn(){
+
+    if (this.scenario.isNotEmpty()){
+      const scenarioSerialized = this.scenario.serialize();   //serialize the scenario
+
+      const params: NavigationExtras = {    //add it to the navigation query parameters
+        queryParams: { scenario: scenarioSerialized}
+      };
+
+      this.router.navigate(['/login'], params); //redirect with params
+    }else{
+      this.router.navigate(['/login']);         //redirect without params
+    }
+    
+  }
+
   //onClick for ExportDOCX button
   downloadAsDOCX(){
     //call the DOCX method for the current scenario

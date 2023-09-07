@@ -257,7 +257,7 @@
                 <button type="button" class="btn btn-primary me-md-2" (click)="saveButton()" [ngStyle]="{'opacity': buttonOpacity}">{{saveBtnText}}</button>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-info me-md-3 " routerLink="/login" [ngStyle]="{'visibility': buttonVisibility}">Συνδεθείτε ΕΔΩ</button>
+                <button type="button" class="btn btn-info me-md-3 " (click)="redirectToLogIn()" [ngStyle]="{'visibility': buttonVisibility}">Συνδεθείτε ΕΔΩ</button>
             </div>
 
             <div *ngIf="(lastSavedTime!='')" class="d-grid gap-2 d-md-flex justify-content-md-start">
